@@ -58,10 +58,7 @@ userSchema.pre('save', async function(next) {
     this.password = await bcrypt.hash(this.password, salt);
     this.phoneNumber = await bcrypt.hash(this.phoneNumber, salt);
     this.birthDate = await bcrypt.hash(this.birthDate, salt);
-    next();
 });
-
-// static login user method --> TO DO !!
 
 // define User model
 const User = mongoose.model('user', userSchema);

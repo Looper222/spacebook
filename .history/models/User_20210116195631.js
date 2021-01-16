@@ -1,0 +1,44 @@
+const mongoose = require('mongoose');
+const { isEmail, isStrongPassword, isDate, isMobilePhone } = require('validator');
+
+// creating schema
+const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: [true, 'Please enter and email'],
+        unique: true,
+        lowercase: true,
+        validate: [isEmail, 'Please enter a valid email']
+    },
+    login: {
+        type: String,
+        required: [true, 'Please enter a login'],
+        unique: true
+    },
+    password: {
+        type: String,
+        required: [true, 'Please enter a password'],
+        unique: true,
+        validate: [isStrongPassword, 'Please enter strong password']
+    },
+    phoneNumber: {
+        type: String,
+        unique: true,
+        validate: []
+    },
+    birthDate: {
+        type: String,
+        required: [true, 'Please enter your birth date'],
+        validate: [isDate, 'Please enter a valid date']
+    },
+    race: {
+        type: String,
+        required:
+    },
+    sex: {
+
+    },
+    planet: {
+
+    }
+})
