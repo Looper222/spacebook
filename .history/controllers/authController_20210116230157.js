@@ -1,0 +1,7 @@
+// signup_post
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+
+const signup_post = async (req, res) => {
+    const { email, name, surname, password, phoneNumber, birthDate, race, sex, planet } = req.body;
+}
