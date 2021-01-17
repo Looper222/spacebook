@@ -1,3 +1,4 @@
+// signup_post
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
@@ -24,8 +25,6 @@ const signup_post = async (req, res) => {
         console.log(err);
     }
 };
-
-
 
 module.exports = {
     signup_post

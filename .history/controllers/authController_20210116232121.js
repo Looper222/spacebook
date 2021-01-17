@@ -1,7 +1,6 @@
+// signup_post
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-
-// handling errrors
 
 // create jwt
 const maxAge = 1 * 24 * 60 * 60;
@@ -18,15 +17,8 @@ const signup_post = async (req, res) => {
         const user = await User.create({ email, name, surname, password, phoneNumber, birthDate, race, sex, planet });
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
-        res.status(201).json({ user: user._id });
     }
     catch(err) {
         console.log(err);
     }
-};
-
-
-
-module.exports = {
-    signup_post
-};
+}

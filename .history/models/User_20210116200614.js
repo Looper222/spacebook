@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const { isEmail, isStrongPassword, isDate, isMobilePhone } = require('validator');
-const bcrypt = require('bcrypt');
 
 // creating schema
 const userSchema = new mongoose.Schema({
@@ -47,23 +46,4 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Please enter your planet's name"]
     }
-});
-
-// hash values before save them to db
-userSchema.pre('save', async function(next) {
-    const salt = await bcrypt.genSalt();
-    this.email = await bcrypt.hash(this.email, salt);
-    this.name = await bcrypt.hash(this.name, salt);
-    this.surname = await bcrypt.hash(this.surname, salt);
-    this.password = await bcrypt.hash(this.password, salt);
-    this.phoneNumber = await bcrypt.hash(this.phoneNumber, salt);
-    this.birthDate = await bcrypt.hash(this.birthDate, salt);
-    next();
-});
-
-// static login user method --> TO DO !!
-
-// define User model
-const User = mongoose.model('user', userSchema);
-
-module.exports = User;
+})
