@@ -1,7 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
-const { checkUser } = require('./middleware/authMiddleware');
 
 const app = express();
 
@@ -16,5 +15,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 
 // routes
-app.get('*', checkUser);
+//app.get('*', checkUser);
 app.use(authRoutes);

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
 const checkUser = (req, res, next) => {
-    const token = req.cookies.authenticatedUser;
+    const token = req.cookies.jwt;
 
     if (token) {
         jwt.verify(token, 'uG4pUlyy1nRRrDA9', async (err, decodedToken) => {
@@ -22,5 +22,3 @@ const checkUser = (req, res, next) => {
         next();
     }
 }
-
-module.exports = { checkUser };
