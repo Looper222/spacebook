@@ -83,12 +83,10 @@ userSchema.statics.login = async function(login, password) {
                 if (auth) {
                     return user;
                 }
-                throw Error('incorrect password');
             }
-            throw Error('incorrect number');
         }
     }
-};
+}
 
 // define User model
 const User = mongoose.model('user', userSchema);

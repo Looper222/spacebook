@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const { isEmail, isStrongPassword, isDate, isMobilePhone } = require('validator');
 const bcrypt = require('bcrypt');
-const { valueToCompare } = require('../middleware/authMiddleware');
 
 // creating schema
 const userSchema = new mongoose.Schema({
@@ -50,12 +49,16 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+const salt = await bcrypt.genSalt();
+
 // hash values before save them to db
-userSchema.pre('save', async function(next) {
-    const salt = await bcrypt.genSalt();
+userSchema.pre('save', async function(salt, next) {
+    
+    this.email = await bcrypt.hash(this.email, salt);
     this.name = await bcrypt.hash(this.name, salt);
     this.surname = await bcrypt.hash(this.surname, salt);
     this.password = await bcrypt.hash(this.password, salt);
+    this.phoneNumber = await bcrypt.hash(this.phoneNumber, salt);
     this.birthDate = await bcrypt.hash(this.birthDate, salt);
     next();
 });
@@ -65,30 +68,17 @@ userSchema.statics.login = async function(login, password) {
     // validate login data
     let loginCheck = isEmail(login);
     if (loginCheck == true) {
-        const user = await this.findOne({ email: login });
+        const user = await this.findOne(bcrypt.);
         if (user) {
-            const auth = await bcrypt.compare(password, user.password);
-            if (auth) {
-                return user;
-            }
-            throw Error('incorrect password');
+            const auth = await
         }
-        throw Error('incorrect email');
     } else {
         loginCheck = isMobilePhone(login);
         if (loginCheck == true) {
-            const user = await this.findOne({ phoneNumber: login });
-            if (user) {
-                const auth = await bcrypt.compare(password, user.password);
-                if (auth) {
-                    return user;
-                }
-                throw Error('incorrect password');
-            }
-            throw Error('incorrect number');
+
         }
     }
-};
+}
 
 // define User model
 const User = mongoose.model('user', userSchema);

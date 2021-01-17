@@ -65,7 +65,7 @@ userSchema.statics.login = async function(login, password) {
     // validate login data
     let loginCheck = isEmail(login);
     if (loginCheck == true) {
-        const user = await this.findOne({ email: login });
+        const user = await this.findOne({ email: await bcrypt.compare(login) });
         if (user) {
             const auth = await bcrypt.compare(password, user.password);
             if (auth) {
@@ -77,18 +77,10 @@ userSchema.statics.login = async function(login, password) {
     } else {
         loginCheck = isMobilePhone(login);
         if (loginCheck == true) {
-            const user = await this.findOne({ phoneNumber: login });
-            if (user) {
-                const auth = await bcrypt.compare(password, user.password);
-                if (auth) {
-                    return user;
-                }
-                throw Error('incorrect password');
-            }
-            throw Error('incorrect number');
+
         }
     }
-};
+}
 
 // define User model
 const User = mongoose.model('user', userSchema);
