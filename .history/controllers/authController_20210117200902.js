@@ -32,7 +32,7 @@ const login_post = async (req, res) => {
         const user = await User.login( login, password);
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
-        res.status(200).json({ user: user._id });
+        res.status(200).json({ user._id });
         console.log('user logged');
     }
     catch(err) {
