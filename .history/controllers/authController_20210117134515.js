@@ -26,17 +26,18 @@ const signup_post = async (req, res) => {
 };
 
 const login_post = async (req, res) => {
-    const { login, password } = req.body;
+    const { email, password, phoneNumber } = req.body;
+
+    // loging with email or phoneNumber
 
     try {
-        const user = await User.login( login, password);
+        const user = await User.login( email, password, phoneNumber);
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
-        res.status(200).json({ user });
-        console.log('user logged');
+        res.status(200).json({ user: user._id });
     }
     catch(err) {
-        res.status(400).json(err);
+
     }
 };
 
