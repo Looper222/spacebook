@@ -7,7 +7,7 @@ const handleErrors = (err) => {
     let errors = { login: '', password: ''};
 
     // incorrect email
-    if (err.message === 'incorrect email') {
+    if (err.message === 'icorrect email') {
         errors.login = 'That email is not registered';
     }
 
@@ -18,7 +18,7 @@ const handleErrors = (err) => {
 
     // incorrect password
     if (err.message === 'incorrect password') {
-        errors.password = 'The entered password is not correct';
+        errors.login = 'The entered password is not correct';
     }
 
     // duplicate value error --> TO-DO!
@@ -31,7 +31,7 @@ const handleErrors = (err) => {
     }
 
     return errors;
-};
+}
 
 
 // create jwt
@@ -68,8 +68,8 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
+        console.log(err.message, err.code);
+        res.status(400).json(err);
     }
 };
 

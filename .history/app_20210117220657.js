@@ -17,4 +17,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 // routes
 app.get('*', checkUser);
+app.get('/messages', requireAuth, (req, res) => res.sender('smoothies');
 app.use(authRoutes);

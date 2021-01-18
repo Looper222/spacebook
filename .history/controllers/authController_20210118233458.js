@@ -18,7 +18,7 @@ const handleErrors = (err) => {
 
     // incorrect password
     if (err.message === 'incorrect password') {
-        errors.password = 'The entered password is not correct';
+        errors.login = 'The entered password is not correct';
     }
 
     // duplicate value error --> TO-DO!

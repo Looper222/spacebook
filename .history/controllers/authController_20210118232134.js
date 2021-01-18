@@ -5,33 +5,7 @@ const jwt = require('jsonwebtoken');
 const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { login: '', password: ''};
-
-    // incorrect email
-    if (err.message === 'incorrect email') {
-        errors.login = 'That email is not registered';
-    }
-
-    // incorrect number
-    if (err.message === 'incorrect number') {
-        errors.login = 'That number is not registered';
-    }
-
-    // incorrect password
-    if (err.message === 'incorrect password') {
-        errors.password = 'The entered password is not correct';
-    }
-
-    // duplicate value error --> TO-DO!
-
-    // validation errors
-    if (err.message.includes('user validation failed')) {
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        });
-    }
-
-    return errors;
-};
+}
 
 
 // create jwt
@@ -68,8 +42,8 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrors(err);
-        res.status(400).json({ errors });
+        console.log(err.message, err.code);
+        res.status(400).json(err);
     }
 };
 
