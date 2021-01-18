@@ -23,7 +23,6 @@ const checkUser = (req, res, next) => {
     }
 };
 
-// logged in is needed to watch special pages
 const requireAuth = (req, res, next) => {
     const token = req.cookies.authenticatedUser;
 
@@ -32,9 +31,6 @@ const requireAuth = (req, res, next) => {
             if (err) {
                 console.log(err.message);
                 res.redirect('/home');
-            } else {
-                console.log(decodedToken);
-                next();
             }
         });
     } else {
@@ -42,4 +38,4 @@ const requireAuth = (req, res, next) => {
     }
 };
 
-module.exports = { checkUser, requireAuth };
+module.exports = { checkUser };
