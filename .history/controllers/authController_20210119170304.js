@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 // handling errrors
-const handleErrorsLogin = (err) => {
+const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { login: '', password: ''};
 
@@ -20,6 +20,8 @@ const handleErrorsLogin = (err) => {
     if (err.message === 'incorrect password') {
         errors.password = 'The entered password is not correct';
     }
+
+    // duplicate value error --> TO-DO!
 
     return errors;
 };
@@ -80,6 +82,7 @@ const signup_post = async (req, res) => {
     }
     catch(err) {
         const errors = handleErrorsSignup(err);
+        // console.log(err);
         res.status(400).json({ errors });
     }
 };
@@ -96,7 +99,7 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrorsLogin(err);
+        const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };
