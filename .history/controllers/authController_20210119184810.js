@@ -93,6 +93,7 @@ const login_post = async (req, res) => {
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
         res.status(200).json({ id: user._id, email: user.email, fname: user.fname, surname: user.surname });
+        console.log('user logged');
     }
     catch(err) {
         const errors = handleErrorsLogin(err);
