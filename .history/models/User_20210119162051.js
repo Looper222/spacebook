@@ -23,13 +23,14 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please enter a password'],
+        unique: true,
         validate: [isStrongPassword, 'Please enter strong password']
     },
     phoneNumber: {
         type: String,
         unique: true,
         validate: [isMobilePhone, 'Please enter a valid phone number'],
-        minlength: [9, 'Please enter a valid phone number']
+        minlength: [0, [9, 'Please enter a valid phone number']]
     },
     birthDate: {
         type: String,

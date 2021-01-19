@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 // handling errrors
-const handleErrorsLogin = (err) => {
+const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { login: '', password: ''};
 
@@ -21,34 +21,7 @@ const handleErrorsLogin = (err) => {
         errors.password = 'The entered password is not correct';
     }
 
-    return errors;
-};
-
-const handleErrorsSignup = (err) => {
-    console.log(err.message, err.code);
-    let errors = {
-        email: '',
-        fname: '',
-        surname: '',
-        password: '',
-        phoneNumber: '',
-        birthDate: '',
-        race: '',
-        sex: '',
-        planet: ''
-    }
-
-    // duplicate value errors
-    if (err.code === 11000) {
-        if (err.message.includes('email_1 dup')) {
-            errors.email = 'That email is already registered';
-            return errors;
-        }
-        if (err.message.includes('phoneNumber_1 dup')) {
-            errors.phoneNumber = 'That number is already registered';
-            return errors;
-        }
-    }
+    // duplicate value error --> TO-DO!
 
     // validation errors
     if (err.message.includes('user validation failed')) {
@@ -59,6 +32,21 @@ const handleErrorsSignup = (err) => {
 
     return errors;
 };
+
+const handleErrorsSignup = (err) => {
+    console.log(err.message, err.code);
+    let errors = { 
+        email: '',
+        fname: '',
+        surname: '',
+        password: '',
+        phoneNumber: '',
+        birthDate: '',
+        race: '',
+        sex: '',
+        planet: ''
+    }
+}
 
 
 // create jwt
@@ -79,7 +67,8 @@ const signup_post = async (req, res) => {
         res.status(201).json({ user: user._id });
     }
     catch(err) {
-        const errors = handleErrorsSignup(err);
+        const errors = handleErrors(err);
+        // console.log(err);
         res.status(400).json({ errors });
     }
 };
@@ -96,7 +85,7 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrorsLogin(err);
+        const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };

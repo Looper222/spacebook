@@ -2,7 +2,7 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 // handling errrors
-const handleErrorsLogin = (err) => {
+const handleErrors = (err) => {
     console.log(err.message, err.code);
     let errors = { login: '', password: ''};
 
@@ -20,6 +20,8 @@ const handleErrorsLogin = (err) => {
     if (err.message === 'incorrect password') {
         errors.password = 'The entered password is not correct';
     }
+
+    // duplicate value error --> TO-DO!
 
     return errors;
 };
@@ -40,14 +42,12 @@ const handleErrorsSignup = (err) => {
 
     // duplicate value errors
     if (err.code === 11000) {
-        if (err.message.includes('email_1 dup')) {
-            errors.email = 'That email is already registered';
-            return errors;
-        }
-        if (err.message.includes('phoneNumber_1 dup')) {
-            errors.phoneNumber = 'That number is already registered';
-            return errors;
-        }
+        // Object.values(err.errors).forEach(({ properties }) => {
+        //     errors[properties.path] = properties.message;
+        // });
+        errors.email = 'that email is already registered';
+        return errors;
+
     }
 
     // validation errors
@@ -80,6 +80,7 @@ const signup_post = async (req, res) => {
     }
     catch(err) {
         const errors = handleErrorsSignup(err);
+        // console.log(err);
         res.status(400).json({ errors });
     }
 };
@@ -96,7 +97,7 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrorsLogin(err);
+        const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };

@@ -96,7 +96,7 @@ const login_post = async (req, res) => {
         console.log('user logged');
     }
     catch(err) {
-        const errors = handleErrorsLogin(err);
+        const errors = handleErrors(err);
         res.status(400).json({ errors });
     }
 };
