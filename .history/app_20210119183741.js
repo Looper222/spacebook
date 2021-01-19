@@ -7,7 +7,7 @@ const { checkUser } = require('./middleware/authMiddleware');
 const app = express();
 
 // middleware
-app.use(cors());
+
 app.use(express.json());
 
 // database connection

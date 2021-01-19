@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/authRoutes');
 const { checkUser } = require('./middleware/authMiddleware');
@@ -7,7 +6,6 @@ const { checkUser } = require('./middleware/authMiddleware');
 const app = express();
 
 // middleware
-app.use(cors());
 app.use(express.json());
 
 // database connection
