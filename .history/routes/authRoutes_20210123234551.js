@@ -6,6 +6,6 @@ const router = Router();
 
 router.post('/signup', authController.signup_post);
 router.post('/login', authController.login_post);
-router.post('/search', searchController.search_user);
+router.post('/search', )
 
 module.exports = router;
