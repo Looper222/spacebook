@@ -8,12 +8,13 @@ const search_user = async (req, res, next) => {
     try {
         // creating array pf words splitted by blank space (spacebar)
         if (phrase.includes(' ')) {
+            console.log('Dwu członowy phrase');
             const phraseValues = phrase.split(' ');
             let fname = phraseValues[0];
             let surname = phraseValues[1];
 
             // find values in db
-            let user = await User.find({ fname, surname });
+            const usser = await User.find({ fname, surname });
 
             let searchedUsers = generateArray(user);
             let numOfResults = searchedUsers.length;
@@ -22,10 +23,9 @@ const search_user = async (req, res, next) => {
                 surname = phraseValues[0];
                 fname = phraseValues[1];
 
-                user = await User.find({ fname, surname });
+                const user = await User.find({ fname, surname });
 
-                searchedUsers = generateArray(user);
-                numOfResults = searchedUsers.length;
+                
             }
 
             // response array with valid users
@@ -34,22 +34,22 @@ const search_user = async (req, res, next) => {
                 searchResults: searchedUsers
             });
         } else {
+            console.log('Jednoczłonowy phrase');
+
             // search request by phoneNumber
-            try {
-                if (isMobilePhone(phrase) && phrase.length == 9) {
-                    const phoneNumber = phrase;
+            if (isMobilePhone(phrase) && phrase.length == 9) {
+                const phoneNumber = phrase;
 
-                    const user = await User.findOne({ phoneNumber });
-                    const searchedUsers = { id: user._id, fname: user.fname, surname: user.surname, phoneNumber: user.phoneNumber, race: user.race, sex: user.sex, planet: user.planet };
-                    const numOfResults = searchedUsers.length;
+                const user = await User.findOne({ phoneNumber });
+                const searchedUsers = { id: user._id, fname: user.fname, surname: user.surname, phoneNumber: user.phoneNumber, race: user.race, sex: user.sex, planet: user.planet };
+                const numOfResults = searchedUsers.length;
 
-                    res.status(201).json({
-                        numOfResults: numOfResults,
-                        searchResults: searchedUsers
-                    })
-                }
-            } catch (err) {
-                console.log(err);
+                res.status(201).json({
+                    numOfResults: numOfResults,
+                    searchResults: searchedUsers
+                })
+            } else {
+                res.status(400).json('Jest tylko jedno słowo i to nie numer');
             }
         }
     } catch (err) {

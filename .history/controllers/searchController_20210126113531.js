@@ -35,21 +35,19 @@ const search_user = async (req, res, next) => {
             });
         } else {
             // search request by phoneNumber
-            try {
-                if (isMobilePhone(phrase) && phrase.length == 9) {
-                    const phoneNumber = phrase;
+            if (isMobilePhone(phrase) && phrase.length == 9) {
+                const phoneNumber = phrase;
 
-                    const user = await User.findOne({ phoneNumber });
-                    const searchedUsers = { id: user._id, fname: user.fname, surname: user.surname, phoneNumber: user.phoneNumber, race: user.race, sex: user.sex, planet: user.planet };
-                    const numOfResults = searchedUsers.length;
+                const user = await User.findOne({ phoneNumber });
+                const searchedUsers = { id: user._id, fname: user.fname, surname: user.surname, phoneNumber: user.phoneNumber, race: user.race, sex: user.sex, planet: user.planet };
+                const numOfResults = searchedUsers.length;
 
-                    res.status(201).json({
-                        numOfResults: numOfResults,
-                        searchResults: searchedUsers
-                    })
-                }
-            } catch (err) {
-                console.log(err);
+                res.status(201).json({
+                    numOfResults: numOfResults,
+                    searchResults: searchedUsers
+                })
+            } else {
+                res.status(400).json('Jest tylko jedno słowo i to nie numer');
             }
         }
     } catch (err) {
