@@ -63,11 +63,6 @@ const search_user = async (req, res, next) => {
                         searchedUsers = generateArray(user);
                         numOfResults = searchedUsers.length;
                     }
-
-                    res.status(201).json({
-                        numOfResults: numOfResults,
-                        searchResults: searchedUsers
-                    })
                 }
             } catch (err) {
                 console.log(err);

@@ -48,26 +48,7 @@ const search_user = async (req, res, next) => {
                         searchResults: searchedUsers
                     })
                 } else {
-                    const fname = phrase;
 
-                    let user = await User.find({ fname });
-
-                    let searchedUsers = generateArray(user);
-                    let numOfResults = searchedUsers.length;
-
-                    if (numOfResults == 0) {
-                        const surname = phrase;
-
-                        user = await User.find({ surname });
-
-                        searchedUsers = generateArray(user);
-                        numOfResults = searchedUsers.length;
-                    }
-
-                    res.status(201).json({
-                        numOfResults: numOfResults,
-                        searchResults: searchedUsers
-                    })
                 }
             } catch (err) {
                 console.log(err);
