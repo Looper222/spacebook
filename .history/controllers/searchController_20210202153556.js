@@ -69,10 +69,6 @@ const search_user = async (req, res, next) => {
                             numOfResults: numOfResults,
                             searchResults: searchedUsers
                         });
-                    } else {
-                        res.status(404).json({
-                            error: 'No match found'
-                        });
                     }
                 }
             } catch (err) {
