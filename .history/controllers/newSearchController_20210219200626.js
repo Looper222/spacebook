@@ -29,6 +29,7 @@ const new_search_user = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+
 };
 
 module.exports = {

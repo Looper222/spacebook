@@ -1,9 +1,13 @@
 const User = require('../models/User');
+const { isMobilePhone } = require('validator');
+// const { bothNames } = require('../middleware/newSearchMiddleware');
 
 const new_search_user = async (req, res) => {
+    //const { phrase, sur } = req.body;
     const { phrase } = req.body;
 
     try {
+        // const user = await User.find( { fname: [phrase, sur] }).select('fname surname email phoneNumber sex race').lean();
          if (phrase.includes(' ')) {
             const splittedPhrase = phrase.split(' ');
             const first = splittedPhrase[0];
@@ -17,7 +21,8 @@ const new_search_user = async (req, res) => {
             let user = await User.find({ fname: phrase }).select('fname surname email phoneNumber sex race').lean();
             if (user.length === 0) {
                 user = await User.find({ surname: phrase }).select('fname surname email phoneNumber sex race').lean();
-                if  (user.length === 0 && phrase.length >= 9) {
+                const len = user.length;
+                if  (user.length === 0 && phrase.isMobilePhone && phrase.length >= 9) {
                     user = await User.find({ phoneNumber: phrase }).select('fname surname email phoneNumber sex race').lean();
                 }
             }
@@ -29,8 +34,10 @@ const new_search_user = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+
 };
 
 module.exports = {
     new_search_user
 };
+
