@@ -6,6 +6,8 @@ const new_search_user = async (req, res) => {
     try {
          if (phrase.includes(' ')) {
             const splittedPhrase = phrase.split(' ');
+            // const first = splittedPhrase[0];
+            // const second = splittedPhrase[1];
             const first = new RegExp(`${splittedPhrase[0]}`, 'i');
             const second = new RegExp(`${splittedPhrase[1]}`, 'i');
 
