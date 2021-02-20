@@ -33,20 +33,20 @@ const userSchema = new mongoose.Schema({
     },
     birthDate: {
         type: String,
-        required: [true, 'Please enter your birth date'],
+        // required: [true, 'Please enter your birth date'],
         validate: [isDate, 'Please enter a valid date']
     },
     race: {
         type: String,
-        required: [true, 'Please enter your race'],
+        // required: [true, 'Please enter your race']
     },
     sex: {
         type: String,
-        required: [true, 'Please choose your sex']
+        // required: [true, 'Please choose your sex']
     },
     planet: {
         type: String,
-        required: [true, "Please enter your planet's name"]
+        // required: [true, "Please enter your planet's name"]
     }
 });
 

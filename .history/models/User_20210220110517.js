@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
         lowercase: true,
         validate: [isEmail, 'Please enter a valid email']
     },
-    name: {
+    fname: {
         type: String,
         required: [true, 'Please enter your name']
     },
@@ -23,40 +23,37 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Please enter a password'],
-        unique: true,
         validate: [isStrongPassword, 'Please enter strong password']
     },
     phoneNumber: {
         type: String,
         unique: true,
-        validate: [isMobilePhone, 'Please enter a valid phone number']
+        validate: [isMobilePhone, 'Please enter a valid phone number'],
+        minlength: [0 || 9, 'Please enter a valid phone number']
     },
     birthDate: {
         type: String,
-        required: [true, 'Please enter your birth date'],
+        // required: [true, 'Please enter your birth date'],
         validate: [isDate, 'Please enter a valid date']
     },
     race: {
         type: String,
-        required: [true, 'Please enter your race'],
+        // required: [true, 'Please enter your race']
     },
     sex: {
         type: String,
-        required: [true, 'Please choose your sex']
+        // required: [true, 'Please choose your sex']
     },
     planet: {
         type: String,
-        required: [true, "Please enter your planet's name"]
+        // required: [true, "Please enter your planet's name"]
     }
 });
 
 // hash values before save them to db
 userSchema.pre('save', async function(next) {
     const salt = await bcrypt.genSalt();
-    this.name = await bcrypt.hash(this.name, salt);
-    this.surname = await bcrypt.hash(this.surname, salt);
     this.password = await bcrypt.hash(this.password, salt);
-    this.birthDate = await bcrypt.hash(this.birthDate, salt);
     next();
 });
 
@@ -77,10 +74,18 @@ userSchema.statics.login = async function(login, password) {
     } else {
         loginCheck = isMobilePhone(login);
         if (loginCheck == true) {
-
+            const user = await this.findOne({ phoneNumber: login });
+            if (user) {
+                const auth = await bcrypt.compare(password, user.password);
+                if (auth) {
+                    return user;
+                }
+                throw Error('incorrect password');
+            }
+            throw Error('incorrect number');
         }
     }
-}
+};
 
 // define User model
 const User = mongoose.model('user', userSchema);
