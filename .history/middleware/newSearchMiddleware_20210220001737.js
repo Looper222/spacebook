@@ -47,11 +47,8 @@ const value = [];
 // generateArrays(phrase, mtchWord);
 
 // const value = phrase.generateArrays(mtchWord);
-// const matchedSignature = new RegExp('\w*(?! )', 'i');
-const matchedSignature = new RegExp('\S/\w*', 'i');
-//   \S/\w*
-const splittedValue = phrase.split(matchedSignature);
+const matchedSignature = new RegExp('\w*(?!\s)', 'i');
+
+const splittedValue = phrase.split()
 
 console.log(value);
-console.log(splittedValue);
-console.log(splittedValue.length)

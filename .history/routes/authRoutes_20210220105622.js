@@ -7,7 +7,7 @@ const router = Router();
 
 router.post('/signup', authController.signup_post);
 router.post('/login', authController.login_post);
-router.post('/search', newSearchController.new_search_user);
-router.post('/oldSearch', searchController.search_user);
+router.post('/search', newsearchController.new_search_user);
+router.post('/oldSearch', SearchController.search_user);
 
 module.exports = router;
