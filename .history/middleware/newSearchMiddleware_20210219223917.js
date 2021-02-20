@@ -1,0 +1,4 @@
+
+
+const phrase = 'Spacja dwie';
+

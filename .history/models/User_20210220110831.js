@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         unique: true,
         validate: [isMobilePhone, 'Please enter a valid phone number'],
-        minlength: [9, 'Please enter a valid phone number']
+        minlength: [0, 'Please enter a valid phone number']
     },
     birthDate: {
         type: String,
