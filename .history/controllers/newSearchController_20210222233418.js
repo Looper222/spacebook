@@ -22,14 +22,9 @@ const new_search_user = async (req, res) => {
                     user = await User.find({ phoneNumber: phrase }).select('_id fname surname').lean();
                 }
             }
-            let recordsCount = user.length;
-            if (user.length === 0) {
-                user = 'User not found';
-                recordsCount = 0;
-            }
 
             console.log(user);
-            res.status(201).json({ numOfResults: recordsCount, result: user });
+            res.status(201).json({ numOfResults: user.length, result: user });
          }
 
     } catch (err) {

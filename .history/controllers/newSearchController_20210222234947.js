@@ -25,11 +25,10 @@ const new_search_user = async (req, res) => {
             let recordsCount = user.length;
             if (user.length === 0) {
                 user = 'User not found';
-                recordsCount = 0;
             }
 
             console.log(user);
-            res.status(201).json({ numOfResults: recordsCount, result: user });
+            res.status(201).json({ numOfResults: user.length, result: user });
          }
 
     } catch (err) {
