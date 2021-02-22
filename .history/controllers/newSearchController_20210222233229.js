@@ -9,7 +9,7 @@ const new_search_user = async (req, res) => {
             const first = new RegExp(`${splittedPhrase[0]}`, 'i');
             const second = new RegExp(`${splittedPhrase[1]}`, 'i');
 
-            const user = await User.find( { fname: [first, second], surname: [second, first] }).select('_id fname surname').lean();
+            const user = await User.find( { fname: [first, second], surname: [second, first] }).select('fname surname email phoneNumber sex race').lean();
 
             console.log(user);
             res.status(201).json({ numOfResults: user.length , result: user });
@@ -22,14 +22,9 @@ const new_search_user = async (req, res) => {
                     user = await User.find({ phoneNumber: phrase }).select('_id fname surname').lean();
                 }
             }
-            let recordsCount = user.length;
-            if (user.length === 0) {
-                user = 'User not found';
-                recordsCount = 0;
-            }
 
             console.log(user);
-            res.status(201).json({ numOfResults: recordsCount, result: user });
+            res.status(201).json({ numOfResults: user.length, result: user });
          }
 
     } catch (err) {

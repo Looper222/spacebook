@@ -15,21 +15,16 @@ const new_search_user = async (req, res) => {
             res.status(201).json({ numOfResults: user.length , result: user });
          } else  {
             const sWord = new RegExp(`${phrase}`, 'i');
-            let user = await User.find({ fname: sWord }).select('_id fname surname').lean();
+            let user = await User.find({ fname: sWord }).select('fname surname').lean();
             if (user.length === 0) {
                 user = await User.find({ surname: sWord }).select('_id fname surname').lean();
                 if  (user.length === 0 && phrase.length >= 9) {
                     user = await User.find({ phoneNumber: phrase }).select('_id fname surname').lean();
                 }
             }
-            let recordsCount = user.length;
-            if (user.length === 0) {
-                user = 'User not found';
-                recordsCount = 0;
-            }
 
             console.log(user);
-            res.status(201).json({ numOfResults: recordsCount, result: user });
+            res.status(201).json({ numOfResults: user.length, result: user });
          }
 
     } catch (err) {
