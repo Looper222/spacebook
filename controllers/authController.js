@@ -18,7 +18,7 @@ const handleErrorsLogin = (err) => {
 
     // incorrect password
     if (err.message === 'incorrect password') {
-        errors.password = 'The entered password is not correct';
+        errors.password = 'Entered password is not correct';
     }
 
     return errors;

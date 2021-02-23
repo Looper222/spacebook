@@ -2,12 +2,12 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
 // handling errrors
-const handleErrors = (err) => {
+const handleErrorsLogin = (err) => {
     console.log(err.message, err.code);
     let errors = { login: '', password: ''};
 
     // incorrect email
-    if (err.message === 'icorrect email') {
+    if (err.message === 'incorrect email') {
         errors.login = 'That email is not registered';
     }
 
@@ -18,10 +18,37 @@ const handleErrors = (err) => {
 
     // incorrect password
     if (err.message === 'incorrect password') {
-        errors.login = 'The entered password is not correct';
+        errors.password = 'Entered password is not correct';
     }
 
-    // duplicate value error --> TO-DO!
+    return errors;
+};
+
+const handleErrorsSignup = (err) => {
+    console.log(err.message, err.code);
+    let errors = {
+        email: '',
+        fname: '',
+        surname: '',
+        password: '',
+        phoneNumber: '',
+        birthDate: '',
+        race: '',
+        sex: '',
+        planet: ''
+    }
+
+    // duplicate value errors
+    if (err.code === 11000) {
+        if (err.message.includes('email_1 dup')) {
+            errors.email = 'That email is already registered';
+            return errors;
+        }
+        if (err.message.includes('phoneNumber_1 dup')) {
+            errors.phoneNumber = 'That number is already registered';
+            return errors;
+        }
+    }
 
     // validation errors
     if (err.message.includes('user validation failed')) {
@@ -31,7 +58,7 @@ const handleErrors = (err) => {
     }
 
     return errors;
-}
+};
 
 
 // create jwt
@@ -43,16 +70,17 @@ const createToken = (id) => {
 
 // after submit registration data
 const signup_post = async (req, res) => {
-    const { email, name, surname, password, phoneNumber, birthDate, race, sex, planet } = req.body;
+    const { email, fname, surname, password, phoneNumber, birthDate, race, sex, planet } = req.body;
 
     try {
-        const user = await User.create({ email, name, surname, password, phoneNumber, birthDate, race, sex, planet });
+        const user = await User.create({ email, fname, surname, password, phoneNumber, birthDate, race, sex, planet });
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
         res.status(201).json({ user: user._id });
     }
     catch(err) {
-        console.log(err);
+        const errors = handleErrorsSignup(err);
+        res.status(400).json({ errors });
     }
 };
 
@@ -64,12 +92,11 @@ const login_post = async (req, res) => {
         const user = await User.login( login, password);
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
-        res.status(200).json({ user: user._id });
-        console.log('user logged');
+        res.status(200).json({ id: user._id, email: user.email, fname: user.fname, surname: user.surname, token: token });
     }
     catch(err) {
-        console.log(err.message, err.code);
-        res.status(400).json(err);
+        const errors = handleErrorsLogin(err);
+        res.status(400).json({ errors });
     }
 };
 
