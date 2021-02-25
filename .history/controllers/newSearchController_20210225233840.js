@@ -19,7 +19,7 @@ const new_search_user = async (req, res) => {
             if (user.length === 0) {
                 user = await User.find({ surname: { $regex: sWord } }).select('_id fname surname').lean();
                 if  (user.length === 0 && phrase.length >= 9) {
-                    user = await User.find({ phoneNumber: phrase }).select('_id fname surname phoneNumber').lean();
+                    user = await User.find({ phoneNumber: { $regex: sWord } }).select('_id fname surname').lean();
                 }
             }
             let recordsCount = user.length;
