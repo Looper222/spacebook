@@ -57,7 +57,7 @@ userSchema.pre('save', async function(next) {
     next();
 });
 
-// static login user method
+// static login user method --> TO DO !!
 userSchema.statics.login = async function(login, password) {
     // validate login data
     let loginCheck = isEmail(login);

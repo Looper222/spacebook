@@ -19,5 +19,5 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 
 // routes
-app.get('*', checkUser);
+// app.get('*', checkUser);
 app.use(authRoutes);
