@@ -6,9 +6,15 @@ const add_friend = async (req, res) => {
     try {
         const friend = await User.findById(friendID).select('_id fname surname').lean();
 
-        // const user = await User.findById(userID)
+        const user = await User.findOneAndUpdate({ _id: userID }, { $addToSet: { friends: friend }}, (error, success) => {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log(success)
+            }
+        });
 
-        console.log('friend is: ', friend);
+        // console.log('friend is: ', friend);
         res.status(201).json({ friend: friend });
     } catch (err) {
         console.log(err);

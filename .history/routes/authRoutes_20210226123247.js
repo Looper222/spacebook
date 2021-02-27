@@ -2,7 +2,7 @@ const { Router } = require('express');
 const authController = require('../controllers/authController');
 const searchController = require('../controllers/searchController');
 const newSearchController = require('../controllers/newSearchController');
-const friendsController = require('../controllers/friendsController');
+const addFriendsController = require('../controllers/addFriendsController');
 
 const router = Router();
 
@@ -11,8 +11,7 @@ router.post('/login', authController.login_post);
 router.post('/search', newSearchController.new_search_user);
 router.post('/oldSearch', searchController.search_user);
 router.post('/getUser', newSearchController.get_user);
-router.post('/addFriend', friendsController.add_friend);
-router.post('/getFriends', friendsController.get_friends);
-router.post('/getSpecFriend', friendsController.get_specified_friend);
+router.post('/addFriend', addFriendsController.add_friend);
+router.post('/get_friends', )
 
 module.exports = router;

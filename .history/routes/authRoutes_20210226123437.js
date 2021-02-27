@@ -12,7 +12,6 @@ router.post('/search', newSearchController.new_search_user);
 router.post('/oldSearch', searchController.search_user);
 router.post('/getUser', newSearchController.get_user);
 router.post('/addFriend', friendsController.add_friend);
-router.post('/getFriends', friendsController.get_friends);
-router.post('/getSpecFriend', friendsController.get_specified_friend);
+router.post('/get_friends', friendsController.get_friends); 
 
 module.exports = router;

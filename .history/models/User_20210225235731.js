@@ -50,9 +50,9 @@ const userSchema = new mongoose.Schema({
     },
     friends: [
         {
-            _id: String,
-            fname: String,
-            surname: String
+            _id: {type: String},
+            fname: {type: String},
+            surname: {type: String}
         }
     ]
 });
