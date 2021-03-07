@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const authController = require('../controllers/authController');
 const searchController = require('../controllers/searchController');
+// const newSearchController = require('../controllers/searchController');
 const friendsController = require('../controllers/friendsController');
 
 const router = Router();
