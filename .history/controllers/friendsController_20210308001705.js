@@ -42,7 +42,7 @@ const delete_friend = async (req, res) => {
                 console.log(err);
                 res.status(400).json({ operationStatus: 'Failed', userID: userID, friendID: friendID });
             } else {
-                res.status(201).json({ operationStatus: 'Completed', userID: result._id, deletedFriendID: friendID });
+                res.status(201).json({ operationStatus: 'Completed', userID: result._id, deletedFriendID: friendID, result: result });
             }
         });
     } catch (err) {
