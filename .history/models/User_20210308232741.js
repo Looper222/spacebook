@@ -59,7 +59,8 @@ const userSchema = new mongoose.Schema({
         {
             _id: String,
             notifType: String,
-            creationDate: String
+            creationDate: String,
+            notifContent: String
         }
     ]
 });

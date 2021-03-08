@@ -13,9 +13,6 @@ router.post('/getUser', searchController.get_user);
 router.post('/addFriend', friendsController.add_friend);
 router.post('/getFriends', friendsController.get_friends);
 router.post('/deleteFriend', friendsController.delete_friend);
-router.post('/notifAdd', notifController.add_notif);
-router.post('/notifRem', notifController.remove_notif);
-router.post('/getNotif', notifController.get_notifs);
 
 
 module.exports = router;
