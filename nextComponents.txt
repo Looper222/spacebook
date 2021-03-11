@@ -1,0 +1,23 @@
+Next components to create:
+
+--- Nodemailer
+    --> to make a service for sending emails from Node.js server to verify just registered user
+        (verify his/her email), and for change forgotten password. Another thing is for sending
+        newsletter by email.
+        https://www.freecodecamp.org/news/use-nodemailer-to-send-emails-from-your-node-js-server/
+
+
+--- GridFS - file storage with MongoDB
+    --> dependencies to install:
+        - multer,
+        - gridfs-stream,
+        - method-override,
+        - multer-gridfs-storage,
+        - crypto (?)
+    --> collections to make:
+        - images,
+        (?):
+        - chunks,
+        - files
+    --> models to make:
+        - Image model

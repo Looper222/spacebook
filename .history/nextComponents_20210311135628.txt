@@ -1,0 +1,6 @@
+Next components to create:
+
+--- Nodemailer
+    --> to make a service for sending emails from Node.js server to verify just registered user
+        (verify his/her email), and for change forgotten password. Another thing is for sending
+        newsletter by email.

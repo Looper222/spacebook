@@ -4,7 +4,8 @@ const new_search_user = async (req, res) => {
     const { phrase } = req.body;
 
     try {
-        const user = await User.find( { fname: phrase }, { projection: { _id: 0 }});
+        const user = await User.find( { fname: phrase }).select('fname surname email phoneNumber sex race');
+        //, { projection: { _id: 0 }}
         // , hint: { fname: 1, surname: 1 }
 
         console.log(user);
