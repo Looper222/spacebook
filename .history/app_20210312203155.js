@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const routes = require('./routes/routes');
+const authRoutes = require('./routes/routes');
 const { checkUser } = require('./middleware/authMiddleware');
 require('dotenv').config();
 const methodOverride = require('method-override');
@@ -71,7 +71,7 @@ const storage = new GridFsStorage({
 // @route POST /upload
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
-    res.json({ fileID: req.file.id, filename: req.file.filename });
+    res.json({ file: req.file.filename });
 });
 
 app.get('/files', (req, res) => {

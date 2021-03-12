@@ -71,7 +71,7 @@ const storage = new GridFsStorage({
 // @route POST /upload
 // @desc Uploads file to DB
 app.post('/upload', upload.single('file'), (req, res) => {
-    res.json({ fileID: req.file.id, filename: req.file.filename });
+    res.json({ file: req.file.filename });
 });
 
 app.get('/files', (req, res) => {
