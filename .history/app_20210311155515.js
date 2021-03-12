@@ -23,26 +23,24 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 
 // create storage engine
-// const storage = new GridFsStorage({
-//     url: dbURI,
-//     file: (req, file) => {
-//         return new Promise((resolve, reject) => {
-//             crypto.randomBytes(16, (err, buf) => {
-//                 if (err) {
-//                     return reject(err);
-//                 }
-//                 const filename = but.toString('hex') + path.extname(file.originalname);
-//                 const fileInfo = {
-//                     filename: filename,
-//                     bucketName: 'uploads'
-//                 };
-//                 resolve(fileInfo);
-//             });
-//         });
-//     }
-// });
-
-// const upload = multer({ storage });
+const storage = new GridFsStorage({
+    url: dbURI,
+    file: (req, file) => {
+        return new Promise((resolve, reject) => {
+            crypto.randomBytes(16, (err, buf) => {
+                if (err) {
+                    return reject(err);
+                }
+                const filename = but.toString('hex') + path.extname(file.originalname);
+                const fileInfo = {
+                    filename: filename,
+                    bucketName: 'uploads'
+                };
+                resolve(fileInfo);
+            })
+        })
+    }
+})
 
 
 // routes

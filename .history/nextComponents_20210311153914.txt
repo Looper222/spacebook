@@ -23,4 +23,3 @@ Next components to create:
         - Image model
     --> controllers to make:
         - imagesUploadController
-    --> change storage engine from promise to try-catch
