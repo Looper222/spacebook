@@ -21,6 +21,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     .then((result) => app.listen(8080))
     .catch((err) => console.log(err));
 
-// @routes
+// routes
 // app.get('*', checkUser);
 app.use(routes);
