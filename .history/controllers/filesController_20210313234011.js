@@ -16,19 +16,16 @@ const conn = mongoose.createConnection(dbURI, {
     useFindAndModify: false
 });
 
-// Init gfs & gridFSBucket
+// Init gfs
 let gfs;
-let gridFSBucket;
+let gridFsBucket;
 
 conn.once('open', () => {
     // Init stream
     gfs = Grid(conn.db, mongoose.mongo);
-
-    gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
-        bucketName: 'uploads'
-    });
-
     gfs.collection('uploads');
+
+    gridFsBucket = new mongoose.mongo.GridFSBucket;
 });
 
 // Create storage engine
@@ -109,7 +106,7 @@ const get_single_image = (req, res) => {
                 });
             }
             if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-                const readstream = gridFSBucket.openDownloadStreamByName(file.filename);
+                const readstream = gfs.createReadStream(file.filename);
                 readstream.pipe(res);
             } else {
                 res.status(404).json({
@@ -125,8 +122,7 @@ const get_single_image = (req, res) => {
 
 const delete_single_file = (req, res) => {
     try {
-        const obj_id = new mongoose.Types.ObjectId(req.params.id);
-        gridFSBucket.delete( obj_id, (err, gridFSBucket) => {
+        gfs.deleteMany({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
             if (err) {
                 return res.status(404).json({ err: err });
             }

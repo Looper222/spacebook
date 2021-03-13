@@ -28,8 +28,10 @@ conn.once('open', () => {
         bucketName: 'uploads'
     });
 
+    gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
 });
+
 
 // Create storage engine
 const storage = new GridFsStorage({
