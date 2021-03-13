@@ -16,20 +16,23 @@ const conn = mongoose.createConnection(dbURI, {
     useFindAndModify: false
 });
 
-// Init gfs & gridFSBucket
+// Init gfs
 let gfs;
 let gridFSBucket;
 
 conn.once('open', () => {
     // Init stream
     gfs = Grid(conn.db, mongoose.mongo);
+    // gfs.collection('uploads');
 
     gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
         bucketName: 'uploads'
     });
 
+    gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
 });
+
 
 // Create storage engine
 const storage = new GridFsStorage({
@@ -109,6 +112,7 @@ const get_single_image = (req, res) => {
                 });
             }
             if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+                // const readstream = gfs.createReadStream(file.filename);
                 const readstream = gridFSBucket.openDownloadStreamByName(file.filename);
                 readstream.pipe(res);
             } else {

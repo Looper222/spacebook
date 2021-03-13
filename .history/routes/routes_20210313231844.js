@@ -32,5 +32,11 @@ router.get('/files/:filename', filesController.get_single_file);
 router.get('/files/img/:filename', filesController.get_single_image);
 router.delete('/files/del/:id', filesController.delete_single_file);
 
+// @controller fcontroller
+// router.post('/files/upload', filesController.upload.single('file'), filesController.upload_single_file);
+// router.get('/files', filesController.get_files);
+// router.get('/files/:filename', filesController.get_single_file);
+// router.get('/files/img/:filename', filesController.get_single_image);
+// router.delete('/files/del/:id', filesController.delete_single_file);
 
 module.exports = router;

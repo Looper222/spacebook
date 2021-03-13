@@ -16,20 +16,23 @@ const conn = mongoose.createConnection(dbURI, {
     useFindAndModify: false
 });
 
-// Init gfs & gridFSBucket
+// Init gfs
 let gfs;
 let gridFSBucket;
 
 conn.once('open', () => {
     // Init stream
     gfs = Grid(conn.db, mongoose.mongo);
+    // gfs.collection('uploads');
 
     gridFSBucket = new mongoose.mongo.GridFSBucket(conn.db, {
         bucketName: 'uploads'
     });
 
+    gfs = Grid(conn.db, mongoose.mongo);
     gfs.collection('uploads');
 });
+
 
 // Create storage engine
 const storage = new GridFsStorage({
@@ -109,6 +112,7 @@ const get_single_image = (req, res) => {
                 });
             }
             if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+                // const readstream = gfs.createReadStream(file.filename);
                 const readstream = gridFSBucket.openDownloadStreamByName(file.filename);
                 readstream.pipe(res);
             } else {
@@ -128,13 +132,20 @@ const delete_single_file = (req, res) => {
         const obj_id = new mongoose.Types.ObjectId(req.params.id);
         gridFSBucket.delete( obj_id, (err, gridFSBucket) => {
             if (err) {
-                return res.status(404).json({ err: err });
+                return res.status(404).json('jebło');
             }
 
-            res.status(201).json({
-                operationStatus: 'File has been deleted'
-            });
+            res.status(201).json('dziala kurwa');
         });
+        // gridFSBucket.delete({ _id: obj_id, root: 'uploads' }, (err, gridStore) => {
+        //     if (err) {
+        //         return res.status(404).json({ err: err });
+        //     }
+
+        //     res.status(201).json({
+        //         operationStatus: 'File has been deleted'
+        //     });
+        // });
     } catch (err) {
         console.log(err);
         res.status(400).json('Attempt failed');
