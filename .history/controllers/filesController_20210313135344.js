@@ -123,7 +123,7 @@ const delete_single_file = (req, res) => {
             if (err) {
                 return res.status(404).json({ err: err });
             }
-
+    
             res.status(201).json({
                 operationStatus: 'File has been deleted'
             });

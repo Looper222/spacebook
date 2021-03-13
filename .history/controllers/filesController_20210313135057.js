@@ -79,59 +79,45 @@ const get_files = (req, res) => {
 };
 
 const get_single_file = (req, res) => {
-    try {
-        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-            if (!file || file.length === 0) {
-                return res.status(404).json({
-                errorMessage: 'No file found'
-                });
-            }
-            return res.json(file);
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json('Attempt failed');
-    }
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file || file.length === 0) {
+            return res.status(404).json({
+            errorMessage: 'No file found'
+            });
+        }
+        return res.json(file);
+    });
 };
 
 const get_single_image = (req, res) => {
-    try {
-        gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-            if (!file || file.length === 0) {
-                return res.status(404).json({
-                    errorMessage: 'No file found'
-                });
-            }
-            if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-                const readstream = gfs.createReadStream(file.filename);
-                readstream.pipe(res);
-            } else {
-                res.status(404).json({
-                    errorMessage: 'Not an image'
-                });
-            }
-        });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json('Attempt failed');
-    }
+    gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
+        if (!file || file.length === 0) {
+            return res.status(404).json({
+                errorMessage: 'No file found'
+            });
+        }
+
+        if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+            const readstream = gfs.createReadStream(file.filename);
+            readstream.pipe(res);
+        } else {
+            res.status(404).json({
+                errorMessage: 'Not an image'
+            });
+        }
+    });
 };
 
 const delete_single_file = (req, res) => {
-    try {
-        gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-            if (err) {
-                return res.status(404).json({ err: err });
-            }
+    gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+        if (err) {
+            return res.status(404).json({ err: err });
+        }
 
-            res.status(201).json({
-                operationStatus: 'File has been deleted'
-            });
+        res.status(201).json({
+            operationStatus: 'File has been deleted'
         });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json('Attempt failed');
-    }
+    });
 };
 
 module.exports = {

@@ -118,20 +118,15 @@ const get_single_image = (req, res) => {
 };
 
 const delete_single_file = (req, res) => {
-    try {
-        gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-            if (err) {
-                return res.status(404).json({ err: err });
-            }
+    gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
+        if (err) {
+            return res.status(404).json({ err: err });
+        }
 
-            res.status(201).json({
-                operationStatus: 'File has been deleted'
-            });
+        res.status(201).json({
+            operationStatus: 'File has been deleted'
         });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json('Attempt failed');
-    }
+    });
 };
 
 module.exports = {
