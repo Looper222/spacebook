@@ -27,7 +27,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 
 const io = socket(server);
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
     console.log('It finally works and connection is going through');
 });
 

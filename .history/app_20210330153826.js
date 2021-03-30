@@ -11,7 +11,6 @@ const app = express();
 // middleware
 app.use(cors());
 // app.use(methodOverride('_method'));
-app.use(express.static('public'));
 
 // data parsing
 app.use(express.json());
@@ -27,7 +26,7 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
 
 
 const io = socket(server);
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
     console.log('It finally works and connection is going through');
 });
 
