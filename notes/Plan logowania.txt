@@ -1,0 +1,12 @@
+Logowanie i ustalanie statusu:
+- logowanie (cookie => id) -> nawi¹zanie po³¹czenia socket.io connection -> broadcast id tego u¿ytkownika na zasadzie obiektu { userID: decodedCookie.id, onlineStatus: true } -> zapisuje do bazy danych status jako aktywny -> po przyjeciu emita sprawdza czy userID = jedno z id ostatnich userów, jeœli tak to ustala jak¹s wartosæ na true ( odnoœnie tego ¿e s¹ zalogowani) lub odswie¿a dane z bazy danych ( raczej to pierwsze lepsze bo szybsze, a on i tak bêdzie mia³ zapisane w bazie danych ten user, który siê zalogowa³, ¿e jest online, dopóki siê nie wyloguje. 
+
+Wylogowywanie i ustalanie statusu:
+- on disconnect -> broadcast { userID: decodedCookie.id, onlineStatus: false } -> zapisuje do bazy danych status jako nieaktywny <=> (w miêdzyczasie po otrzymaniu emita dziêki boradcastowi, sprawdza sobie czy jest to jeden z ostatnich [widocznych] kontaktów, jeœli tak to widocznie zmienia jego status na offline ( z poziomu websocketów jest to du¿o szybsze, a nowo zalogowani userzy sobie pobior¹ z bazy czy jakoœ inaczej).
+
+
+Do zrobienia:
++ zmieniæ scope reszty socketów ( oproæz tego do connection, ¿eby widzia³ ktos czy druga osoba jest online czy nie)
++ umiesciæ w modelu array Chat - zrobione
++ pobieranie informacji o ostatnich kontaktach ( na podstawie 5 ostatnich zaapdejtowanych obiektow w array chat) 
++ przy logowaniu wyemitowanie eventa, który zmusi konretnych userów (jeœli s¹ online) (na podstawie id ostatnich kontaktów) do prze³adowania informacji, na temat tego usera (jeœli jest on jednym z ich ostatnich kontaktów) , który w³asnie sie zalogowa³ ( aby wiedzieæ czy jest online czy offline)

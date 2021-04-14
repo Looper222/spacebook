@@ -1,0 +1,34 @@
+get_user - szukanie po id z tokenu w ciasteczku - - > zrobione
+
+*+* dokonano zmiany wszystkich userID from req.body na idFromCookie(req);
++ Spróbować dodać app.listen po połączeniu z bazą danych, bądź spróbować ogarnąć łączenie try catchem -> na razie to nie działa
++ Trzeba dodać status do usera jeśli jest aktywny
++ Zmiejszyć liczbę rzeczy dotyczących usera przy rejestracji ( bo nie są potrzebne)
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{"login": "bruce@springsten.com", "password": "Kwakwa5!"}' http://localhost:8080/login
+
+/\ Socket.io to do:
++ pobieranie id zalogowanego usera zaraz po io connection
++ status na aktywny
++ wysyłanie wiadomości do konkretnych socketów w pokoju plus zapisywanie ich do bazy danych
++ emitowanie id pochodzącego z tokena do drugiego usera, aby po jego stronie wiadomość mogła zapisac się w bazie danych ze wszystkimi potrzebnymi danymi
++ emitowanie id juz na poczatku, by osoba mogła zobaczyć aktualy nick i ostatnie wiadomości, by móc je zaczytać (jescze i tak pobieranie ostatnio używanych czatów - do kilku, wraz z wiadomościami, jak w messie)
++ event do pokazywania, że ktos pisze wiadomość
++ specjalny event zagnieżdżony jeden w drugim, przy przesyłaniu plików/zdjęć innemu użytkownikowi
++ emitowanie informacji na czacie o zmianie nicku i innych wydarzeniach,
++ status wysłanej wiadomości (jak w messie: niewysłana, nadana, dostarczona, odczytana (odczytana przez)
+
+sygnature chat array in usersDB for User.js model:
+chat: [
+	{
+		_id: String, - - > (friend'sID)
+		nickname: String, - - > (jaki ustawi sobie użytkownik, lub jego rozmówca na danym czacie, oboje powinni mieć takie same wersje nicków w swoich rekordach w bazie danych, więc synchroniczne aktualizowanie, gdy jeden zmieni nick, u obu osób)
+		messages: [
+				{
+					_id: String, - - > (id osoby, która napisała wiadomość, później po niej będzie określana strona po której będą się wyświetlać wiadomości oraz po prostu nicki, kto napisał wiadomość)
+					message: String,
+					read-status: nieprzeczytane/przeczytane (false/true)
+				}
+			]
+	}
+]

@@ -48,6 +48,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         // required: [true, "Please enter your planet's name"]
     },
+    onlineStatus: Boolean,
     friends: [
         {
             _id: String,
@@ -68,7 +69,24 @@ const userSchema = new mongoose.Schema({
             notifType: String,
             creationDate: String
         }
-    ]
+    ],
+    chat: [
+        {
+            _id: String,
+            nickname: String,
+            lastUpdate: String,
+            messages: [
+                    {
+                        _id: String,
+                        message: String,
+                        readStatus: Boolean,
+                        sentDate: String,
+                        readDate: String
+                    }
+                ]
+        }
+    ],
+    lastContacts: Array
 });
 
 // hash values before save them to db

@@ -1,7 +1,9 @@
 const User = require('../models/User');
+const { idFromCookie } = require('../middleware/componentsMiddleware');
 
 const add_notif = async (req, res) => {
-    const { userID, friendID, notifType } = req.body;
+    idFromCookie(req);
+    const { friendID, notifType } = req.body;
     const date = new Date().toDateString();
 
     const notif = {
@@ -27,7 +29,8 @@ const add_notif = async (req, res) => {
 };
 
 const remove_notif = async (req, res) => {
-    const { userID, friendID } = req.body;
+    idFromCookie(req);
+    const { friendID } = req.body;
 
     try {
         const user = await User.findOneAndUpdate({ _id: userID }, { $pull: { notifs: { _id: friendID }}}, { useFindAndModify: false },
@@ -46,7 +49,7 @@ const remove_notif = async (req, res) => {
 };
 
 const get_notifs = async (req, res) => {
-    const { userID } = req.body;
+    idFromCookie(req);
 
     try {
         const notifsList = await User.findById(userID).select('_id notifs').lean();

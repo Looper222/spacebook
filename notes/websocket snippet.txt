@@ -1,0 +1,4 @@
+/socket.io/?EIO=4&transport=websocket
+
+cookie: 
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzhiNDkxNjE0YzZhNTJmYzJiMGQxZCIsImlhdCI6MTYxNzkxNDE5NCwiZXhwIjoxNjE4MDAwNTk0fQ.3RMyZfzHnMpSDaqHt_iKuucmV_sETY2RrwWo1kFGsw8; Path=/; Domain=localhost; HttpOnly; Expires=Fri, 14 Apr 2021 20:36:34 GMT;

@@ -1,4 +1,6 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { idFromCookie } = require('../middleware/componentsMiddleware');
 
 const search_user = async (req, res) => {
     const { phrase } = req.body;
@@ -38,7 +40,7 @@ const search_user = async (req, res) => {
 };
 
 const get_user = async (req, res) => {
-    const { userID } = req.body;
+    idFromCookie(req);
 
     try {
         const user = await User.findById(userID).select('fname surname email phoneNumber sex race').lean();

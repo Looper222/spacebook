@@ -1,7 +1,9 @@
 const User = require('../models/User');
+const { idFromCookie } = require('../middleware/componentsMiddleware');
 
 const add_friend = async (req, res) => {
-    const { userID, friendID } = req.body;
+    idFromCookie(req);
+    const { friendID } = req.body;
 
     try {
         const friend = await User.findById(friendID).select('_id fname surname').lean();
@@ -21,7 +23,7 @@ const add_friend = async (req, res) => {
 };
 
 const get_friends = async (req, res) => {
-    const { userID } = req.body;
+    idFromCookie(req);
 
     try {
         const friendsList = await User.findById(userID).select('_id friends').lean();
@@ -35,7 +37,8 @@ const get_friends = async (req, res) => {
 
 
 const delete_friend = async (req, res) => {
-    const { userID, friendID } = req.body;
+    idFromCookie(req);
+    const { friendID } = req.body;
 
     try {
         const user = await User.findOneAndUpdate({ _id: userID }, { $pull: { friends: { _id: friendID }}}, { useFindAndModify: false }, function(err, result) {
