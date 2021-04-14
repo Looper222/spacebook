@@ -10,12 +10,8 @@ const router = Router();
 // @controller authController
 router.post('/signup', authController.signup_post);
 router.post('/login', authController.login_post);
-router.get('/', (req, res) => {
-    res.redirect('/login');
-});
-router.get('/login', (req, res) => {
-    res.send('index.html');
-});
+router.get('/', res.redirect('/login'));
+router.get('/login', res.send('index.html'));
 
 // @controller searchController
 router.post('/search', searchController.search_user);
