@@ -33,7 +33,7 @@ let databaseConnection = false;
 // database connection
 const dbURI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@nodetuts.je9tx.mongodb.net/spacebook?retryWrites=true&w=majority`;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
-    .then((result) => {
+    .then(() => {
         console.log("Database connected");
         databaseConnection = true;
     })
@@ -59,21 +59,41 @@ io.on("connection", (socket) => {
 
     let onlineStatus;
 
+    const getLastContacts = async () => {
+        const lastContacts = await chatController.get_lastContacts(decodedCookie.id);
+        // console.log(lastContacts);
+        const contactsWithStatus = await chatController.status_of_lastContacts(lastContacts);
+        console.log(contactsWithStatus);
+    };
+
+    const updateLastContacts = async (contactID) => {
+        const update = await chatController.update_lastContacts(decodedCookie.id, contactID);
+        console.log('update completed');
+        getLastContacts();
+    }
+
+    // John Travolta's ID
+    let tID = '6030dfccd1e65e39dce0ab9c';
+    // Johnny Bravo's ID
+    let bID = '60382b614db80e4240692984';
+
     if (decodedCookie) {
         onlineStatus = true;
-        socket.broadcast.emit('status', {
+        socket.broadcast.emit('singleStatus', {
             userID: decodedCookie.id,
             onlineStatus: onlineStatus
         });
 
         if (databaseConnection) {
             chatController.change_status(decodedCookie.id, onlineStatus);
-        } else {
+
+        //     getLastContacts();
+            updateLastContacts(tID);
+        //     getLastContacts();
+        // } else {
             console.log('Database is so slow');
         }
     }
-
-    chatController.get_lastContacts(decodedCookie.id);
 
     // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się
     // nie wylogował

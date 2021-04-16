@@ -15,7 +15,7 @@ socket.on('start', () => {
 //     dest.innerHTML = data;
 // });
 
-socket.on('status', (data) => {
+socket.on('singleStatus', (data) => {
     const text = `Status usera: ${data.userID} to ${data.onlineStatus}`;
     status.innerHTML = text;
 });

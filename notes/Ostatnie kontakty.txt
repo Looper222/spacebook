@@ -1,0 +1,38 @@
+5 ostatnich kontaktów:
+
+- zapisywane do bazy danych jest 5 id ostatnich kontaktów,
+
+- przy logowaniu (lub poł.aczeniu z socketem) użytkownik pobiera sobie tą array i zapisuje do jakiejś wartości
+	lub
+	przy broadcastowaniu tego id przez kogoś pobiera wtedy listę i dopiero wtedy sprawdza czy jest to jedna z tych osób
+	
+Do zrobienia teraz 15.04.2021:
+
+- funkcja 1 -> po zalogowaniu użytkownik broadcastuje swoje id wyciągnięte z ciasteczka do innych socketów
+
+- funckja 2 -> po otrzymaniu id z broadcastu, user pobiera po swoim id listę swoich ostatnich kontaktów, jeśli id otzymane z broadcastu jest jednym z id ostatnich userów, wtedy uruchamia funckje 3
+
+- funckja 3 -> odświeża status kontaktów wystepujących w ostatnich kontaktach
+
+	|
+	|
+     \/
+     
+- składowe funkcje, wcześniejsze przed funkcją 3, aby ona miała sens:
+
+	- funckja 1 -> get_lastContacts - pobiera listę ostatnich kontaktów
+	- funkcja 2 -> pobieranie listy kontaktów w formacie: id, status (online/offline), jeśli offline to wtedy dodatkowo datę wylogowania, aby można było obliczyć jak dawno był aktywny
+	|
+     \/
+     I to jest własnie ta funkcja 3, która ma odświeżać status tych widocznych na stronie 5 ostatnich kontaktów	
+	
+!!!!!!!!!!!!! JESZCZE INACZEJ !!!!!!!!!!!!!!!!!
+Przy zalogowaniu broadcastowanie id wraz ze statusem online = true,
+przy wylogowaniu broadcastowanie id wraz ze statusem online = false
+- po tym własnie określane jest w czasie rzeczywistym czy dany użytkownik jest online czy nie
+- plus trzeba to jeszcze umeiścić jakoś w zmiennej ( w sensie podac do frontu te dane)
+- jednak przy samym logowaniu trzeba również pobrać statusy użytkowników z listy ostatnich kontaktów w obiekcie o schemacie: id, onlineStatus
+
+- zaimplementowanie funkcji update_lastContacts
+
+- pobieranie statusu ostatnich kontaktów

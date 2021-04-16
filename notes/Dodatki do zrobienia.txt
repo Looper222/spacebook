@@ -1,0 +1,25 @@
+-------------------------------
+15.04.2021
+-------------------------------
+-> Dodać sekcje statusu dostepny away from keyboard itd.
+
+-> Dodac wylogowanie po pewnych czasie bezczynności ( w sensie zmianę statusu na jakiś inny niż online)
+
+-> Dodac wartość cookie na sesję
+
+-> Należy również zrobić funkcję która podczas wyświetlania przyjaciół lub użytkowników będzie w zależności od typu zapytania działa tak:
+
+->> przeglądanie listy znajomych:
+	1. pobierała alfabetycznie listę znajomych wraz z ich online statusem
+	(jednak nie trzeba w liście znajomych raczej pokazywać czy jest online czy nie, ale można to zrobic)
+
+->> wyszukiwanie użytkownika:
+	tu również nie jest potrzebne aby wyświetlał się status, ale mozna:
+	1. przy wyświetlaniu wyszukiwanego użytkownika, pobierać również jego status i wyświetlać go również oprócz imienia nazwiska i zdjęcia
+
+-------------------------------
+16.04.2021
+-------------------------------
+-> Dodać do modelu od razu pozycje odnośnie znajomych, chatów itd, żeby w chwili utworzenia użytwkonika on miał już wszyko, lecz puste, no i to później będzie sobie dodawać juz do konkretnych rzeczy
+
+-> Error handling dla funckji do czatów ( aby się nie wywalało jak jest pusta wartość)

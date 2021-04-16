@@ -47,7 +47,7 @@ const get_lastContacts = async (cookieID) => {
     try {
         const user = await User.findById(userID).select('lastContacts').lean();
         const lastContacts = user.lastContacts;
-        console.log(lastContacts);
+        // console.log(lastContacts);
         return lastContacts;
     } catch (err) {
         console.log(err);
@@ -117,10 +117,21 @@ const update_lastContacts = async (cookieID, contactID) => {
     }
 };
 
+const status_of_lastContacts = async (lastContacts) => {
+    const contactsWithStatus = [];
+
+    for (let index = 0; index < lastContacts.length; index++) {
+        const user = await User.findById(lastContacts[index]).select('onlineStatus').lean();
+        contactsWithStatus.push(user);
+    }
+    return contactsWithStatus;
+};
+
 
 module.exports = {
     change_status,
     update_lastContacts,
     trial_add_lastContacts,
-    get_lastContacts
+    get_lastContacts,
+    status_of_lastContacts
 };
