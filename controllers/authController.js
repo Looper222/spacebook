@@ -33,9 +33,9 @@ const handleErrorsSignup = (err) => {
         password: '',
         phoneNumber: '',
         birthDate: '',
-        race: '',
-        sex: '',
-        planet: ''
+        // race: '',
+        sex: ''
+        // planet: ''
     }
 
     // duplicate value errors
@@ -70,10 +70,22 @@ const createToken = (id) => {
 
 // after submit registration data
 const signup_post = async (req, res) => {
-    const { email, fname, surname, password, phoneNumber, birthDate, race, sex, planet } = req.body;
+    //race & planet were deleted
+    const { email, fname, surname, password, phoneNumber, birthDate, sex } = req.body;
+    const onlineStatus = false;
+    const friends = [];
+    const notifs = [];
+    const chat = [];
+    const lastContacts = [];
+
 
     try {
-        const user = await User.create({ email, fname, surname, password, phoneNumber, birthDate, race, sex, planet });
+        let user;
+        if ( phoneNumber == "" || phoneNumber == null) {
+            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts });
+        } else {
+            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts, phoneNumber });
+        }
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
         res.status(201).json({ user: user._id });

@@ -25,28 +25,12 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please enter a password'],
         validate: [isStrongPassword, 'Please enter strong password']
     },
-    phoneNumber: {
-        type: String,
-        unique: true,
-        validate: [isMobilePhone, 'Please enter a valid phone number'],
-        minlength: [9, 'Please enter a valid phone number']
-    },
     birthDate: {
         type: String,
-        // required: [true, 'Please enter your birth date'],
         validate: [isDate, 'Please enter a valid date']
-    },
-    race: {
-        type: String,
-        // required: [true, 'Please enter your race']
     },
     sex: {
         type: String,
-        // required: [true, 'Please choose your sex']
-    },
-    planet: {
-        type: String,
-        // required: [true, "Please enter your planet's name"]
     },
     onlineStatus: Boolean,
     friends: [
@@ -86,7 +70,18 @@ const userSchema = new mongoose.Schema({
                 ]
         }
     ],
-    lastContacts: Array
+    lastContacts: Array,
+    phoneNumber: {
+        type: String,
+        unique: true,
+        sparse: true,
+        validate: {
+            validator: v => {
+                return /[0-9]{9}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number`
+        }
+    },
 });
 
 // hash values before save them to db

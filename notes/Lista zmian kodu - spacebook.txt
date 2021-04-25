@@ -1,0 +1,9 @@
+Lista zmian kodu:
+
+-----------------------
+25.04.2021
+-----------------------
+- usunięcie z modelu wartości race and planet
+
+- dodanie pustych wartości onlineStatus, friends, notifs, chat, lastContacs
+podczas tworzenia nowego użytkownika
