@@ -6,10 +6,10 @@ const change_status = async (cookieID, onlineStatus) => {
     try {
         const user = await User.findOneAndUpdate({ _id: userID}, { $set: { onlineStatus: onlineStatus }}, {useFindAndModify: false}, function(err, result) {
             if (err) {
-                console.log('Failed');
+                console.log('Status-change: Failed');
                 console.log(err);
             } else {
-                console.log('Completed');
+                console.log('Status-change: Completed');
             }
         });
     } catch (err) {

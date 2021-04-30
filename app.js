@@ -64,18 +64,33 @@ io.on("connection", (socket) => {
         // console.log(lastContacts);
         const contactsWithStatus = await chatController.status_of_lastContacts(lastContacts);
         console.log(contactsWithStatus);
+        return contactsWithStatus;
     };
 
     const updateLastContacts = async (contactID) => {
         const update = await chatController.update_lastContacts(decodedCookie.id, contactID);
         console.log('update completed');
         getLastContacts();
-    }
+    };
 
-    // John Travolta's ID
-    let tID = '6030dfccd1e65e39dce0ab9c';
-    // Johnny Bravo's ID
-    let bID = '60382b614db80e4240692984';
+    const throwLastContacts = async () => {
+        const list = await getLastContacts();
+
+        if (list) {
+            console.log('jest lista');
+            socket.emit('lastContactsStatusUpdate', list);
+
+        } else {
+            console.log('lastContacts in line 92 are empty');
+        }
+    };
+
+    // Elton John's ID
+    let eID = '6085a79176f0955784f96170';
+    // Phil Collin's ID
+    let pID = '6085a79a76f0955784f96171';
+    // Bruce Wayne's ID
+    let bID = '6085a891f1665f1b94f000de';
 
     if (decodedCookie) {
         onlineStatus = true;
@@ -87,12 +102,29 @@ io.on("connection", (socket) => {
         if (databaseConnection) {
             chatController.change_status(decodedCookie.id, onlineStatus);
 
-        //     getLastContacts();
-            updateLastContacts(tID);
-        //     getLastContacts();
-        // } else {
-            console.log('Database is so slow');
+            // updateLastContacts(pID); //--->>>>> testowe
+
+            // socket.emit('lastContactsStatusUpdate', getLastContacts());
+
+            throwLastContacts();
+
+        } else {
+        console.log('Database is so slow');
         }
+
+        socket.on('newUserConnected', async (data) => {
+            console.log(data);
+            const lastContacts = await chatController.get_lastContacts(decodedCookie.id);
+
+            if (lastContacts.includes(data)) {
+                console.log('Someone of lastContacts');
+                const contactsWithStatus = await chatController.status_of_lastContacts(lastContacts);
+                console.log(contactsWithStatus);
+                socket.emit('lastContactsStatusUpdate', contactsWithStatus);
+            } else {
+                console.log('None of lastContacts');
+            }
+        });
     }
 
     // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się
@@ -103,12 +135,15 @@ io.on("connection", (socket) => {
     socket.on('disconnect', () => {
         console.log('User has been disconnected');
         onlineStatus = false;
-        socket.broadcast.emit('status', {
+        socket.broadcast.emit('singleStatus', {
             userID: decodedCookie.id,
             onlineStatus: onlineStatus
         });
         chatController.change_status(decodedCookie.id, onlineStatus);
         console.log('broadcast disconnection')
+        setTimeout(() => {
+            console.log('------------------------------------');
+        }, 1000);
     });
 });
 

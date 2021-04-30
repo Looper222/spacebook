@@ -3,6 +3,8 @@ const socket = io();
 const test = document.getElementById('test');
 const dest = document.getElementById('dest');
 const status = document.getElementById('status');
+const info = document.getElementById('info');
+const lastContacts = document.getElementById('lastContacts');
 
 socket.on('start', () => {
     const msg = "I'm connected";
@@ -18,4 +20,18 @@ socket.on('start', () => {
 socket.on('singleStatus', (data) => {
     const text = `Status usera: ${data.userID} to ${data.onlineStatus}`;
     status.innerHTML = text;
+    socket.emit('newUserConnected', data.userID);
+});
+
+socket.on('lastContactsStatusUpdate', (data) => {
+    // const list = data.toString();
+    console.log(data);
+    info.innerHTML = 'Event się wykonał';
+    let list = '';
+    for (let i = 0; i < data.length; i++) {
+        list += `{ user: ${data[i]._id}, statusOnline: ${data[i].onlineStatus} } `;
+        console.log(list);
+    }
+
+    lastContacts.innerHTML = list;
 });
