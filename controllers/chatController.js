@@ -57,27 +57,46 @@ const get_lastContacts = async (cookieID) => {
 const update_lastContacts = async (cookieID, contactID) => {
     const userID = cookieID;
 
-    try {
-        const user = await User.findById(userID).select('lastContacts').lean();
-        const lastContacts = user.lastContacts;
-        if (!lastContacts.includes(contactID)) {
-            if (lastContacts.length < 5) {
-                lastContacts.unshift(contactID);
-                try {
-                    const updatingUser = await User.findByIdAndUpdate({ _id: userID }, { $set: { lastContacts: lastContacts }}, {useFindAndModify: false}, (err, result) => {
-                        if (err) {
-                            console.log('Failed');
-                            console.log(err);
-                        } else {
-                            console.log('Completed');
-                        }
-                    });
-                } catch (err) {
-                    console.log('Attempt failed');
-                    console.log(err);
+    if (contactID != cookieID) {
+        try {
+            const user = await User.findById(userID).select('lastContacts').lean();
+            const lastContacts = user.lastContacts;
+            if (!lastContacts.includes(contactID)) {
+                if (lastContacts.length < 5) {
+                    lastContacts.unshift(contactID);
+                    try {
+                        const updatingUser = await User.findByIdAndUpdate({ _id: userID }, { $set: { lastContacts: lastContacts }}, {useFindAndModify: false}, (err, result) => {
+                            if (err) {
+                                console.log('Failed');
+                                console.log(err);
+                            } else {
+                                console.log('Completed');
+                            }
+                        });
+                    } catch (err) {
+                        console.log('Attempt failed');
+                        console.log(err);
+                    }
+                } else {
+                    lastContacts.pop();
+                    lastContacts.unshift(contactID);
+                    try {
+                        const updatingUser = await User.findByIdAndUpdate({ _id: userID }, { $set: { lastContacts: lastContacts }}, {useFindAndModify: false}, (err, result) => {
+                            if (err) {
+                                console.log('Failed');
+                                console.log(err);
+                            } else {
+                                console.log('Completed');
+                            }
+                        });
+                    } catch (err) {
+                        console.log('Attempt failed');
+                        console.log(err);
+                    }
                 }
             } else {
-                lastContacts.pop();
+                const index = lastContacts.indexOf(contactID);
+                lastContacts.splice(index, 1);
                 lastContacts.unshift(contactID);
                 try {
                     const updatingUser = await User.findByIdAndUpdate({ _id: userID }, { $set: { lastContacts: lastContacts }}, {useFindAndModify: false}, (err, result) => {
@@ -93,27 +112,10 @@ const update_lastContacts = async (cookieID, contactID) => {
                     console.log(err);
                 }
             }
-        } else {
-            const index = lastContacts.indexOf(contactID);
-            lastContacts.splice(index, 1);
-            lastContacts.unshift(contactID);
-            try {
-                const updatingUser = await User.findByIdAndUpdate({ _id: userID }, { $set: { lastContacts: lastContacts }}, {useFindAndModify: false}, (err, result) => {
-                    if (err) {
-                        console.log('Failed');
-                        console.log(err);
-                    } else {
-                        console.log('Completed');
-                    }
-                });
-            } catch (err) {
-                console.log('Attempt failed');
-                console.log(err);
-            }
-        }
 
-    } catch (err) {
-        console.log(err);
+        } catch (err) {
+            console.log(err);
+        }
     }
 };
 

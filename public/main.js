@@ -35,3 +35,13 @@ socket.on('lastContactsStatusUpdate', (data) => {
 
     lastContacts.innerHTML = list;
 });
+
+document.addEventListener('click', (e) => {
+    if (e.target.id === "id1" || e.target.id === "id2" || e.target.id === "id3") {
+        const contactID = document.getElementById(e.target.id).value;
+
+        document.getElementById('result').innerHTML = `Contact id: ${contactID}`;
+
+        socket.emit('newLastContact', contactID);
+    }
+});

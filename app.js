@@ -125,6 +125,11 @@ io.on("connection", (socket) => {
                 console.log('None of lastContacts');
             }
         });
+
+        socket.on('newLastContact', (data) => {
+            //użycie funckji aktualizacji lastContacts
+            updateLastContacts(data);
+        });
     }
 
     // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się
