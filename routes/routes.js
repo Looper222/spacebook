@@ -4,7 +4,7 @@ const searchController = require('../controllers/searchController');
 const friendsController = require('../controllers/friendsController');
 const notifController = require('../controllers/notifController');
 const filesController = require('../controllers/filesController');
-const chatController = require('../controllers/chatController');
+const statusController = require('../controllers/statusController');
 
 const router = Router();
 
@@ -39,8 +39,8 @@ router.get('/files/:filename', filesController.get_single_file);
 router.get('/files/img/:filename', filesController.get_single_image);
 router.delete('/files/del/:id', filesController.delete_single_file);
 
-// @controller chatController
-router.post('/trial', chatController.trial_add_lastContacts);
+// @controller statusController
+router.post('/trial', statusController.trial_add_lastContacts);
 
 
 module.exports = router;

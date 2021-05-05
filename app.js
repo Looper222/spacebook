@@ -9,7 +9,7 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const { idFromCookie } = require('./middleware/componentsMiddleware');
 const Cookie = require('cookie');
-const chatController = require('./controllers/chatController');
+const statusController = require('./controllers/statusController');
 
 
 const app = express();
@@ -60,15 +60,15 @@ io.on("connection", (socket) => {
     let onlineStatus;
 
     const getLastContacts = async () => {
-        const lastContacts = await chatController.get_lastContacts(decodedCookie.id);
+        const lastContacts = await statusController.get_lastContacts(decodedCookie.id);
         // console.log(lastContacts);
-        const contactsWithStatus = await chatController.status_of_lastContacts(lastContacts);
+        const contactsWithStatus = await statusController.status_of_lastContacts(lastContacts);
         console.log(contactsWithStatus);
         return contactsWithStatus;
     };
 
     const updateLastContacts = async (contactID) => {
-        const update = await chatController.update_lastContacts(decodedCookie.id, contactID);
+        const update = await statusController.update_lastContacts(decodedCookie.id, contactID);
         console.log('update completed');
         getLastContacts();
     };
@@ -100,7 +100,7 @@ io.on("connection", (socket) => {
         });
 
         if (databaseConnection) {
-            chatController.change_status(decodedCookie.id, onlineStatus);
+            statusController.change_status(decodedCookie.id, onlineStatus);
 
             // updateLastContacts(pID); //--->>>>> testowe
 
@@ -114,11 +114,11 @@ io.on("connection", (socket) => {
 
         socket.on('newUserConnected', async (data) => {
             console.log(data);
-            const lastContacts = await chatController.get_lastContacts(decodedCookie.id);
+            const lastContacts = await statusController.get_lastContacts(decodedCookie.id);
 
             if (lastContacts.includes(data)) {
                 console.log('Someone of lastContacts');
-                const contactsWithStatus = await chatController.status_of_lastContacts(lastContacts);
+                const contactsWithStatus = await statusController.status_of_lastContacts(lastContacts);
                 console.log(contactsWithStatus);
                 socket.emit('lastContactsStatusUpdate', contactsWithStatus);
             } else {
@@ -130,6 +130,10 @@ io.on("connection", (socket) => {
             //użycie funckji aktualizacji lastContacts
             updateLastContacts(data);
         });
+
+        socket.on('chatOpened', (data) => {
+
+        })
     }
 
     // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się
@@ -144,7 +148,7 @@ io.on("connection", (socket) => {
             userID: decodedCookie.id,
             onlineStatus: onlineStatus
         });
-        chatController.change_status(decodedCookie.id, onlineStatus);
+        statusController.change_status(decodedCookie.id, onlineStatus);
         console.log('broadcast disconnection')
         setTimeout(() => {
             console.log('------------------------------------');

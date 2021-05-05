@@ -43,5 +43,6 @@ document.addEventListener('click', (e) => {
         document.getElementById('result').innerHTML = `Contact id: ${contactID}`;
 
         socket.emit('newLastContact', contactID);
+        socket.emit('chatOpened', contactID);
     }
 });
