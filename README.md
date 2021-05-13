@@ -1,7 +1,14 @@
 # spacebook
- - Repository store express and node.js based server.
+ - Express, Node.js based server-side REST Api.
+ - DB based on MongoDB, stored in the cloud - MongoDB Atlas,
+ - JWT token,
+ - Socekt.io
 
-# added components:
-- registration process,
-- login process,
-- user search process
+# components included:
+- registration,
+- loging,
+- user search by name, surname & phone number,
+- adding friends,
+- setting notifications,
+- user's online/offline status, real-time changing,
+- chat rooms (with saving messages to DB) .... [in progress]
