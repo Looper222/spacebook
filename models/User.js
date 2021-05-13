@@ -54,22 +54,28 @@ const userSchema = new mongoose.Schema({
             creationDate: String
         }
     ],
-    chat: [
-        {
-            _id: String,
-            nickname: String,
-            lastUpdate: String,
-            messages: [
-                    {
-                        _id: String,
-                        message: String,
-                        readStatus: Boolean,
-                        sentDate: String,
-                        readDate: String
-                    }
-                ]
-        }
-    ],
+    // chat: [
+    //     {
+    //         _id: String,
+    //         nickname: String,
+    //         lastUpdate: String,
+    //         messages: [
+    //                 {
+    //                     _id: String,
+    //                     message: String,
+    //                     readStatus: Boolean,
+    //                     sentDate: String,
+    //                     readDate: String
+    //                 }
+    //             ]
+    //     }
+    // ],
+    // chats: {
+    //     lastChats: Array,
+    //     allChats: Array
+    // },
+    allChats: Array,
+    lastChats: Array,
     lastContacts: Array,
     phoneNumber: {
         type: String,

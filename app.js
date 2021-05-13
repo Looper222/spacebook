@@ -10,6 +10,7 @@ const jwt = require('jsonwebtoken');
 const { idFromCookie } = require('./middleware/componentsMiddleware');
 const Cookie = require('cookie');
 const statusController = require('./controllers/statusController');
+const chatController = require('./controllers/chatController');
 
 
 const app = express();
@@ -85,6 +86,16 @@ io.on("connection", (socket) => {
         }
     };
 
+    const chatOpenedFun = async (cookieID, friendID, message) => {
+        const singleChat = await chatController.single_chat_create(cookieID, friendID, message);
+
+        if (singleChat) {
+            console.log('chat utworzony');
+        } else {
+            console.log('chat nie został utworzony');
+        }
+    };
+
     // Elton John's ID
     let eID = '6085a79176f0955784f96170';
     // Phil Collin's ID
@@ -132,8 +143,9 @@ io.on("connection", (socket) => {
         });
 
         socket.on('chatOpened', (data) => {
-
-        })
+            chatOpenedFun(decodedCookie.id, data.friendID, data.message);
+            socket.emit('chatDone', { message: 'Chat done'});
+        });
     }
 
     // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się

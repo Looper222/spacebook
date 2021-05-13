@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 
 const chatSchema = new mongoose.Schema({
+    // roomID: {
+    //     type: String,
+    //     required: [true, 'Set roomID property']
+    // },
     members: {
         type: Array,
+        minlength: 2,
         required: [true, 'None of members are included']
     },
     room: [

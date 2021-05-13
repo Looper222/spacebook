@@ -43,6 +43,10 @@ document.addEventListener('click', (e) => {
         document.getElementById('result').innerHTML = `Contact id: ${contactID}`;
 
         socket.emit('newLastContact', contactID);
-        socket.emit('chatOpened', contactID);
+        socket.emit('chatOpened', { friendID: contactID, message: 'New chat was created!'});
     }
+});
+
+socket.on('chatDone', (data) => {
+    document.getElementById('chatDone').innerHTML = data.message;
 });
