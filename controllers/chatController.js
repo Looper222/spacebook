@@ -4,8 +4,7 @@ const Chat = require('../models/Chat');
 
 const single_chat_create = async (cookieID, friendID, message) => {
     const userID = cookieID;
-    const sentDate = new Date().toDateString();
-
+    const sentDate = new Date().toUTCString();
     try {
         const chat = await Chat.create({
             members: [ userID, friendID ],
@@ -19,7 +18,7 @@ const single_chat_create = async (cookieID, friendID, message) => {
 
         const chatID = chat._id.toString();
 
-        const user = await User.findOneAndUpdate({ _id: userID }, { $addToSet: { allChats: chatID}}, {useFindAndModify: false}, function(err, result) {
+        const user = await User.findOneAndUpdate({ _id: userID }, { $addToSet: { allChats: { chatID: chatID, friendID: friendID }}}, {useFindAndModify: false}, function(err, result) {
             if (err) {
                 console.log(chatID);
                 console.log('Failed adding to allChats');
@@ -29,6 +28,31 @@ const single_chat_create = async (cookieID, friendID, message) => {
                 console.log('Completed adding to allChats');
             }
         });
+
+        const friend = await User.findOneAndUpdate({ _id: friendID }, { $addToSet: { allChats: { chatID: chatID, friendID: userID }}}, {useFindAndModify: false}, function(err, result) {
+            if (err) {
+                console.log(chatID);
+                console.log('Failed adding to allChats');
+                console.log(err);
+            } else {
+                console.log(chatID);
+                console.log('Completed adding to allChats');
+            }
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+const auto_choose_opt = async (cookieID, friendID, message) => {
+    try {
+        const chatInfo = await User.find({ _id: cookieID, allChats: { $in: friendID }}).select(`allChats: { $in: ${friendID}}`);
+
+        if (!chatInfo) {
+            single_chat_create(cookieID, friendID, message);
+        } else {
+            console.log('istnieje');
+        }
     } catch (err) {
         console.log(err);
     }
