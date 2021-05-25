@@ -25,41 +25,19 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Please enter a password'],
         validate: [isStrongPassword, 'Please enter strong password']
     },
-    phoneNumber: {
-        type: String,
-        unique: true,
-        validate: [isMobilePhone, 'Please enter a valid phone number'],
-        minlength: [9, 'Please enter a valid phone number']
-    },
     birthDate: {
         type: String,
-        // required: [true, 'Please enter your birth date'],
         validate: [isDate, 'Please enter a valid date']
-    },
-    race: {
-        type: String,
-        // required: [true, 'Please enter your race']
     },
     sex: {
         type: String,
-        // required: [true, 'Please choose your sex']
     },
-    planet: {
-        type: String,
-        // required: [true, "Please enter your planet's name"]
-    },
+    onlineStatus: Boolean,
     friends: [
         {
             _id: String,
             fname: String,
             surname: String
-            //state -> it will be pointing to invitation & friendship state, like follows:...
-            //...pending (when invitation is waiting for accept), active/friend, deleted(...
-            //...when deleted from friends) -> it supposed to be relocated to value deletedFriends...
-            //...only friendID to show users past friends
-
-            //status -> it will be pointing to friend online status (online, offline...
-            //...away from keyboard and others)
         }
     ],
     notifs: [
@@ -68,7 +46,41 @@ const userSchema = new mongoose.Schema({
             notifType: String,
             creationDate: String
         }
-    ]
+    ],
+    // chat: [
+    //     {
+    //         _id: String,
+    //         nickname: String,
+    //         lastUpdate: String,
+    //         messages: [
+    //                 {
+    //                     _id: String,
+    //                     message: String,
+    //                     readStatus: Boolean,
+    //                     sentDate: String,
+    //                     readDate: String
+    //                 }
+    //             ]
+    //     }
+    // ],
+    // chats: {
+    //     lastChats: Array,
+    //     allChats: Array
+    // },
+    allChats: Array,
+    lastChats: Array,
+    lastContacts: Array,
+    phoneNumber: {
+        type: String,
+        unique: true,
+        sparse: true,
+        validate: {
+            validator: v => {
+                return /[0-9]{9}/.test(v);
+            },
+            message: props => `${props.value} is not a valid phone number`
+        }
+    },
 });
 
 // hash values before save them to db

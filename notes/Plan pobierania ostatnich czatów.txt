@@ -1,0 +1,22 @@
+- Do modelu czatu, dok³adnie do obiektu czatu z jedn¹ osob¹ dodamy wartoœæ (datê ostatniej modyfikacji) ( bêdzie aktualizowana za pomoc¹ klauzuli $set).
+- Trzeba dodaæ wartoœæ obecnej daty i godziny do informcaji ( modelu) konkretnej wiadomoœci -> :
+ -> data wys³ania,
+ -> data odczytania
+- Przy zapisywaniu wiadomoœci do bazy danych, bêdzie siê równiez aktualizowa³a wartoœæ daty ostatniej aktualizacji ( z wtedy bierz¹c¹ dat¹),
+- Jesli chodzi o te wiadomoœci, to bêdzie trzeba to aktualizowaæ dla obojga userów w tym samym czasie, niewa¿ne który z nich jest aktywny a który nie ( jedynie ró¿nice bed¹ dotyczyæ stanu odczytania wiadomoœci)
+- Utworzenie funkcji, która bêdzie pobieraæ 5 obiektów z informacjami o ostatnich czatach
+- Te dane bêda pobierane na podstawie daty ostatniej modyfiakcji, z limitem ( 5 obiektów od najnowszej daty - kimit 5)
+- Dane, które bêd¹ pobierane to: friend's id, nickname ( aby wyœwietliæ od razu nick w ikonce czatu lub na pasku, zamiast imienia i nazwiska - jesli nickname zosta³ ustawiony), ostatnia wiadomoœæ,
+
+
+- Ma³e dodatkowe funkcje do dorobienia: 
++ dodawanie/zmiana nicku - u obu osób jednoczeœnie, kazdy z nich mo¿e zmieniæ nick sobie i drugiej osobie
+
+
+- Broadcastowanie do wszystkich, jesli siê po³¹czysz i oni sprawdzaja czy jestes jednym z 5 ostatnich i kontaktow i wtedy odœwiezaja informcjje
+
+- zapisywanie gdzies w bazie do array ostatnich 5 kontaktow po samych id i kiedy bedzie ktos broadcastowal to wtedy porównywac i na tej podstawie odœwie¿aæ nowe dane -> zapisywanie tej listy mg³oby siê odbywaæ normalnie poprzez dodawanie wartoœci, a jesli by³oby juz 5 osób w tej array to wtedy pobiera³oby j¹ ca³a, usuwa³o jedn¹ rzecz  z pozycji 0 i dodawa³o na koniec nowa (która by³aby po prostu najœwie¿sza)
+	-> w przypadku gdy dana nazwa ju¿ istnieje, musia³oby pobraæ listê i wyci¹æ z niej ta wartoœæ i wstawic na koniec ( przez co reszta by sie przesune³a w kolejce, a ta by³aby na koncu jako najœwie¿sza)
+	- - > zrobione
+...\/.....
+- a t¹ listê mo¿naby jakos pobieraæ przy po³¹czeniu i przy napisaniu do kogoœ po raz pierwszy od jakiefos czasu

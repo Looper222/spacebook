@@ -1,0 +1,21 @@
+Bruce Springsten
+{
+    "login": "bruce@springsten.com",
+    "password": "Kwakwa5!"
+}
+_id: 6038b491614c6a52fc2b0d1d
+
+Johnny Bravo
+{
+    "login": "johnny@bravo.com",
+    "password": "Kwakwa5!"
+}
+_id: 60382b614db80e4240692984
+
+John Tavolta
+{
+    "login": "example@email.com",
+    "password": "Kwakwa5!"
+}
+_id: 6030dfccd1e65e39dce0ab9c
+

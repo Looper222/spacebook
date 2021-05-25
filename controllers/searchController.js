@@ -1,5 +1,13 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const { idFromCookie } = require('../middleware/componentsMiddleware');
 
+/**
+ * Search user in DB
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const search_user = async (req, res) => {
     const { phrase } = req.body;
 
@@ -37,8 +45,14 @@ const search_user = async (req, res) => {
     }
 };
 
+/**
+ * Get user info
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const get_user = async (req, res) => {
-    const { userID } = req.body;
+    idFromCookie(req);
 
     try {
         const user = await User.findById(userID).select('fname surname email phoneNumber sex race').lean();
@@ -50,6 +64,9 @@ const get_user = async (req, res) => {
     }
 };
 
+/**
+ * Controller including functions with user search operations
+ */
 module.exports = {
     search_user,
     get_user

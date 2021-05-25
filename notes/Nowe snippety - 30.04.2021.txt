@@ -1,0 +1,42 @@
+{
+    "email": "elton@john.com",
+    "fname": "Elton",
+    "surname": "John",
+    "password": "Kwakwa5!"
+}
+{
+    "email": "phil@collins.com",
+    "fname": "Phil",
+    "surname": "Collins",
+    "password": "Kwakwa5!"
+}
+
+### Logowanie
+
+{
+    "login": "elton@john.com",
+    "password": "Kwakwa5!"
+}
+{
+    "login": "phil@collins.com",
+    "password": "Kwakwa5!"
+}
+{
+    "login": "bruce@wayne.com",
+    "password": "Kwakwa5!"
+}
+
+
+### Tokeny
+
+Elton John:
+
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODVhNzkxNzZmMDk1NTc4NGY5NjE3MCIsImlhdCI6MTYxOTgwMjAzMywiZXhwIjoxNjE5ODg4NDMzfQ.qIll0ct5F6eGKf7iMljIrQaew-DFF1h2ZVWTuvWzKiU; Path=/; HttpOnly; Expires=Sat, 01 May 2022 17:00:33 GMT;
+
+Phil Collins:
+
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODVhNzlhNzZmMDk1NTc4NGY5NjE3MSIsImlhdCI6MTYxOTgwNTAzOCwiZXhwIjoxNjE5ODkxNDM4fQ.5s7j2BAN3ucofE9OorT56M6kjGYt5euwu_fh4DFNrgM; Path=/; HttpOnly; Expires=Sat, 01 May 2022 17:50:38 GMT;
+
+Bruce Wayne:
+
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwODVhODkxZjE2NjVmMWI5NGYwMDBkZSIsImlhdCI6MTYxOTgxMzk2OSwiZXhwIjoxNjE5OTAwMzY5fQ.Qyb7zTMzVtaQuucdEvDEZ4UQCqUF1UEVCbk-8vWXvbA; Path=/; HttpOnly; Expires=Sat, 01 May 2022 20:19:29 GMT;

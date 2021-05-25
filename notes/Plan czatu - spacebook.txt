@@ -1,0 +1,17 @@
+Chat po raz pierwszy:
+- logowanie (cookie - userID) -> id mo¿na odczytaæ z poziomu socketu z cookie -> szukamy drugiej osoby (seach_user), z niego otrzymujemy id drugiej osoby -> poŸniej przechodzi do jej profilu (get_user) -> z poziomu jej profilu klikamy "Wyœlij wiadomoœæ", które z u¿yciem funkcji odpali chat, utworzy pokój (socket.io) i przeka¿e do backendu informacje odnoœnie id nadawcy, id  adresata, zapisze datê wys³ania wiadomoœci -> wszystkie te dane zbierze do kupy i zapisze w bazie danych w array chat u¿ytkownika, którego wyszuka uprzednio dziêki id adresata ( zapisze w bazie informacje tak jak na planie array chat) i doda wartoœæ false do statusu odczytania.
+
+Odbieranie wiadomoœci - Prosta wesja (bardziej messenger):
+- logowanie (id) -> szuka czy to id ma jakieœ chaty (pokoje) i pobiera ostatnich 5 -> wyœwietla informacje o tym czacie na bazie id u¿ytkownika z którym jest ten czat (wyszukuje dany obiekt, który zawiera id równe id u¿ytkownika wyszukanego i zwraca to id, nickname i najnowszych 10 wiadomoœci -> te dane nastêpnie emituje do frontendu 
+
+Odbieranie wiadomoœci - Prosta wersja (bardziej facebook):
+Powiadomienie o wiadomoœci ( o utworzonym czacie):
+- logowanie (id) -> sprawdza czy to id ma jakies wiadomoœci które maja read-status = false -> jeœli tak: pobiera id tych u¿ytkowników i ich nicki oraz iloœæ nieodczytanych wiadoœci dla ka¿dego z nich -> emituje to do frontendu (na froncie ma siê to wyœwietliæ w rodzaju ikony/paska z nickiem usera, którego wiadomoœci nie zosta³y jescze odczytane i dodatkowo ich liczba
+Wchodzenie do czatu (ju¿ utworzonego po powiadomieniu):
+- logowanie (id) -> powiadomienie -> wchodzimy do czatu poprzez klikniêcie na ten pasek z nickiem -> do backendu przesy³ane s¹ id u¿ytkownika z którym piszemy -> po tym id wyszukiwany jest chat o id równym id usera który wys³al wiadomoœæ -> zwracane s¹: id, nick, 10 ostatnich wiadomoœci -> przy pokazaniu ich juz w oknie leci wiadomoœæ, która ma oznajmiæ ¿e u¿ytkownik przeczyta³ wiadomoœci -> po tym evencie read-status wszystkich wiadomoœci w czacie zostaje zmieniony na true
+Pisanie na czacie:
+- logowanie (id) - powiadomienie/ju¿ obecny czat -> za³adowanie wiadomoœci -> zawi¹zanie po³¹czenia (w pokoju) miêdzy sockeatmi jeœli oboje s¹ dostêpni ( online) -> wpisanie wiadomoœci i wys³anie, przy czym emitowany jest event, który wyœle natychmiast wiadomoœæ do drugiego socketa i wyswietli j¹ -> na tym evencie dane zostan¹ zczytane i zapisane do bazy danych ( id nadawcy, message i read-status: false)
+Odczytywanie wiadomoœci bêd¹c na czacie:
+- nawi¹zanie po³¹czenia miêdzy socketami - odczytane wszystkie wczeœniejsze wiadomoœci - czekanie na wiadomoœæ -> otrzymanie wiadomoœci poprzez komunikacje socketów ( natychmiastowo) i po chwili wys³anie do bazy danych read-status: true dla wszystkich wiadomoœci
+
+Trzeba przemyœlec odnoœnie statusu wiadomoœci, gdy¿ komunikacja socketowa jest du¿o szybsza ni¿ zapisanie wartoœci do bazy danych, chyba zeby wysy³aæ jeszcze event do drugiego usera, gdy przyjdzie informacja zwrotna z bazy danych i wtedy dopiero ustawiaæ status na przeczytan¹. Tak samo przy wychodzeniu ustawiæ wszystkich ostatnich wiadomoœci status na odczytany. Chyba ¿eby status wszystkich odczytanych wiadomoœci ustawiac przy wychodzeniu z aplikacji b¹dz ustawia³by siê sam przy utraceniu sesji/po³aczenia

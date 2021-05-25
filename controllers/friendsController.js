@@ -1,7 +1,15 @@
 const User = require('../models/User');
+const { idFromCookie } = require('../middleware/componentsMiddleware');
 
+/**
+ * Add friends to user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const add_friend = async (req, res) => {
-    const { userID, friendID } = req.body;
+    idFromCookie(req);
+    const { friendID } = req.body;
 
     try {
         const friend = await User.findById(friendID).select('_id fname surname').lean();
@@ -20,8 +28,14 @@ const add_friend = async (req, res) => {
     }
 };
 
+/**
+ * Get user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const get_friends = async (req, res) => {
-    const { userID } = req.body;
+    idFromCookie(req);
 
     try {
         const friendsList = await User.findById(userID).select('_id friends').lean();
@@ -33,9 +47,15 @@ const get_friends = async (req, res) => {
     }
 };
 
-
+/**
+ * Delete record from user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const delete_friend = async (req, res) => {
-    const { userID, friendID } = req.body;
+    idFromCookie(req);
+    const { friendID } = req.body;
 
     try {
         const user = await User.findOneAndUpdate({ _id: userID }, { $pull: { friends: { _id: friendID }}}, { useFindAndModify: false }, function(err, result) {
@@ -52,7 +72,10 @@ const delete_friend = async (req, res) => {
     }
 };
 
-
+/**
+ * Controller including functions with user's friends control operations
+ * @module controllers/friendsController
+ */
 module.exports = {
     add_friend,
     get_friends,

@@ -1,0 +1,24 @@
+{
+    "email": "elton@john.com",
+    "fname": "Elton",
+    "surname": "John",
+    "password": "Kwakwa5!"
+}
+{
+    "email": "phil@collins.com",
+    "fname": "Phil",
+    "surname": "Collins",
+    "password": "Kwakwa5!"
+}
+
+Johnny Bravo:
+
+{"_id":{"$oid":"60382b614db80e4240692984"},"email":"johnny@bravo.com","fname":"Johnny","surname":"Bravo","password":"$2b$10$lqVLz0o8B22iMeMmxRMG4usob5XnSei1JIuGLXLpHNLCVtwegShS2","phoneNumber":"222111333","friends":[{"_id":"6006f4b10a92e945cc55bb76","fname":"George","surname":"Michael"},{"_id":"6006f4b10a92e945cc55bb76","fname":"George","surname":"Michael"},{"_id":"600cad5b590bdc222869cf6b","fname":"Bartosz","surname":"Grunt"},{"_id":"600cad5b590bdc222869cf6b","fname":"Bartosz","surname":"Grunt"},{"_id":"600cad39590bdc222869cf69","fname":"Damian","surname":"Ziaja"}],"__v":{"$numberInt":"0"},"notifs":[{}],"onlineStatus":false}
+
+John Travolta:
+
+{"_id":{"$oid":"6030dfccd1e65e39dce0ab9c"},"email":"example@email.com","fname":"John","surname":"Travolta","password":"$2b$10$LryJZMHHJ6V6E/ffuxI8UOL8IN2kbOr3m6HPNEFKQ2F37qCXUQezy","phoneNumber":"122233344","__v":{"$numberInt":"0"},"notifs":[{"_id":"600cad5b590bdc222869cf6b","notifType":"pending-invitation"},{"_id":"600cad5b590bdc222869cf6b","notifType":"pending-invitation"},{"_id":"600cad5b590bdc222869cf6b","notifType":"pending-invitation"}],"onlineStatus":false}
+
+Bruce Springsten:
+
+{"_id":{"$oid":"6038b491614c6a52fc2b0d1d"},"email":"bruce@springsten.com","fname":"Bruce","surname":"Springsten","password":"$2b$10$VMuWguXsAZgENXWuIcuNQetQ/yit9OsLICh2b8CXmTlBa8.Ljtvuy","phoneNumber":"383838383","friends":[{"_id":"6006f4b10a92e945cc55bb76","fname":"George","surname":"Michael"}],"__v":{"$numberInt":"0"},"notifs":[{"_id":"600cad5b590bdc222869cf6b","notifType":"pending-invitation","creationDate":"Tue Mar 09 2021"}],"onlineStatus":false,"lastContacts":["6030dfccd1e65e39dce0ab9c","60382b614db80e4240692984"]}

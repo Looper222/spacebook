@@ -33,9 +33,9 @@ const handleErrorsSignup = (err) => {
         password: '',
         phoneNumber: '',
         birthDate: '',
-        race: '',
-        sex: '',
-        planet: ''
+        // race: '',
+        sex: ''
+        // planet: ''
     }
 
     // duplicate value errors
@@ -60,20 +60,47 @@ const handleErrorsSignup = (err) => {
     return errors;
 };
 
-
 // create jwt
+/**
+ * Age of cookie's life
+ * @type {Int32}
+ */
 const maxAge = 1 * 24 * 60 * 60;
+
+/**
+ * Creating token JWT
+ * @function
+ * @param {String} id user's id
+ * @returns jwt token with payload: { id }, and expiresIn: { maxAge }
+ */
 const createToken = (id) => {
     return jwt.sign({ id }, 'uG4pUlyy1nRRrDA9', { expiresIn: maxAge });
 };
 
-
 // after submit registration data
+/**
+ * Registration process
+ * @description
+ * Save new user's info to DB
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const signup_post = async (req, res) => {
-    const { email, fname, surname, password, phoneNumber, birthDate, race, sex, planet } = req.body;
+    const { email, fname, surname, password, phoneNumber, birthDate, sex } = req.body;
+    const onlineStatus = false;
+    const friends = [];
+    const notifs = [];
+    const chat = [];
+    const lastContacts = [];
 
     try {
-        const user = await User.create({ email, fname, surname, password, phoneNumber, birthDate, race, sex, planet });
+        let user;
+        if ( phoneNumber == "" || phoneNumber == null) {
+            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts });
+        } else {
+            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts, phoneNumber });
+        }
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
         res.status(201).json({ user: user._id });
@@ -85,6 +112,14 @@ const signup_post = async (req, res) => {
 };
 
 // after submit login data
+/**
+ * Authorization process - login
+ * @description
+ * Authorize user by comparing data sent with data from DB
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const login_post = async (req, res) => {
     const { login, password } = req.body;
 
@@ -100,8 +135,10 @@ const login_post = async (req, res) => {
     }
 };
 
-
-
+/**
+ * Controller including functions with user's authorization process
+ * @module controllers/authController
+ */
 module.exports = {
     signup_post,
     login_post

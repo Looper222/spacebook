@@ -1,0 +1,15 @@
+/socket.io/?EIO=4&transport=websocket
+
+Bruce Springsten cookie: 
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzhiNDkxNjE0YzZhNTJmYzJiMGQxZCIsImlhdCI6MTYxNzkxNDE5NCwiZXhwIjoxNjE4MDAwNTk0fQ.3RMyZfzHnMpSDaqHt_iKuucmV_sETY2RrwWo1kFGsw8; 
+Path=/; Domain=localhost; HttpOnly; Expires=Fri, 14 Apr 2021 20:36:34 GMT;
+
+Johnny Bravo cookie:
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzgyYjYxNGRiODBlNDI0MDY5Mjk4NCIsImlhdCI6MTYxODU5MDM4NSwiZXhwIjoxNjE4Njc2Nzg1fQ.58XuywKLVLI0CyddKPRm4qVvTANcBeK4F6CWxH1u9OI; 
+Path=/; HttpOnly; Expires=Sat, 17 Apr 2021 16:26:25 GMT;
+
+John Tavolta cookie:
+authenticatedUser=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwMzBkZmNjZDFlNjVlMzlkY2UwYWI5YyIsImlhdCI6MTYxODU5MDQ2OCwiZXhwIjoxNjE4Njc2ODY4fQ.0ivVvuPeFybevy9JFzuh6RVpKhJo2pPT8Fex5UFGaMc; 
+Path=/; HttpOnly; Expires=Sat, 17 Apr 2021 16:27:48 GMT;
+
+

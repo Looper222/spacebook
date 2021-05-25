@@ -1,0 +1,33 @@
+get_user - szukanie po id z tokenu w ciasteczku - - > zrobione
+
+*+* dokonano zmiany wszystkich userID from req.body na idFromCookie(req);
++ Spróbowaæ dodaæ app.listen po po³¹czeniu z baz¹ danych, b¹dŸ spróbowaæ ogarn¹æ ³¹czenie try catchem -> na razie to nie dzia³a
++ Trzeba dodaæ status do usera jeœli jest aktywny
++ Zmiejszyæ liczbê rzeczy dotycz¹cych usera przy rejestracji ( bo nie s¹ potrzebne)
+
+curl -i -X POST -H 'Content-Type: application/json' -d '{"login": "bruce@springsten.com", "password": "Kwakwa5!"}' http://localhost:8080/login
+
+/\ Socket.io to do:
++ pobieranie id zalogowanego usera zaraz po io connection
++ status na aktywny
++ wysy³anie wiadomoœci do konkretnych socketów w pokoju plus zapisywanie ich do bazy danych
++ emitowanie id pochodz¹cego z tokena do drugiego usera, aby po jego stronie wiadomoœæ mog³a zapisac siê w bazie danych ze wszystkimi potrzebnymi danymi
++ emitowanie id juz na poczatku, by osoba mog³a zobaczyæ aktualy nick i ostatnie wiadomoœci, by móc je zaczytaæ (jescze i tak pobieranie ostatnio u¿ywanych czatów - do kilku, wraz z wiadomoœciami, jak w messie)
++ event do pokazywania, ¿e ktos pisze wiadomoœæ
++ specjalny event zagnie¿d¿ony jeden w drugim, przy przesy³aniu plików/zdjêæ innemu u¿ytkownikowi
++ emitowanie informacji na czacie o zmianie nicku i innych wydarzeniach,
++ status wys³anej wiadomoœci (jak w messie: niewys³ana, nadana, dostarczona, odczytana (odczytana przez)
+
+sygnature chat array in usersDB for User.js model:
+chat: [
+	{
+		_id: String, - - > (friend'sID)
+		nickname: String, - - > (jaki ustawi sobie u¿ytkownik, lub jego rozmówca na danym czacie, oboje powinni mieæ takie same wersje nicków w swoich rekordach w bazie danych, wiêc synchroniczne aktualizowanie, gdy jeden zmieni nick, u obu osób)
+		messages: [
+				{
+					_id: String, - - > (id osoby, która napisa³a wiadomoœæ, póŸniej po niej bêdzie okreœlana strona po której bêd¹ siê wyœwietlaæ wiadomoœci oraz po prostu nicki, kto napisa³ wiadomoœæ)
+					message: String
+				}
+			]
+	}
+]

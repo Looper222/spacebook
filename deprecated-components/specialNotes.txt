@@ -1,0 +1,20 @@
++ Online Status:
+    -> przy logowaniu rozsyłanie, że jest się online, co później
+    pobierały by inne sockety na podstawie tego czy jest się
+    w ich ostatnich kontaktach
+    -> przy wylogowaniu broadcast do wszystkich związanych socketów,
+    czyli np. tego, z którym jesteśmy połączeni w czacie lub
+    np 5 widocznych osób z prawej strony (na początku pobierało by
+    listę ostatnich osób i sprawdzałoby czy są online przez ich cookie jakoś),
+    -> jednocześnie na evencie który informował by o stanie offline
+    drugiego użytkownika, załączałby się licznik czasu, który
+    zliczałby ile już czasu użytkownik jest offline, odswieżając by
+    ten czas co jakiś czas
+    / lub przy disconnectie zapisywało by do bazy użytkownika wylogowanego
+    czas, którym się wylogował i później na użytkowniku zalogowanym'
+    i obecnym na czacie co jakiś czas by obliczało czas na podstawie tej daty
+    (ile juz drugi user jest nieaktywny)
+
+    -> emitowanie eventu przy disconnectowaniu bądź ponownym połączeniu usera,
+    który będzie informacją o tym, aby frontend pobrał informacje odnośnie tych
+    ostatnich/ulubionych przyjaciół z którymi pisał
