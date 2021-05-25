@@ -55,7 +55,6 @@ const delete_friend = async (req, res) => {
     }
 };
 
-
 module.exports = {
     add_friend,
     get_friends,

@@ -12,13 +12,11 @@ const Cookie = require('cookie');
 const statusController = require('./controllers/statusController');
 const chatController = require('./controllers/chatController');
 
-
 const app = express();
 
 // middleware
 app.use(cors());
 app.use(cookieParser());
-// app.use(methodOverride('_method'));
 app.use(express.static('public'));
 
 // data parsing
@@ -40,7 +38,6 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCr
     })
     .catch((err) => console.log(err));
 
-
 const io = socket(server);
 io.on("connection", (socket) => {
     console.log('Connection has started');
@@ -49,15 +46,10 @@ io.on("connection", (socket) => {
 
     socket.on('hi', (data) => {
         console.log(data.message);
-        // socket.emit('ddx', data.message);
     });
 
-    //może zrobić to try catchem czy promisem czy cos
     const cookies = Cookie.parse(socket.request.headers.cookie || "");
-
     const decodedCookie = jwt.decode(cookies.authenticatedUser);
-    // console.log(decodedCookie.id);
-
     let onlineStatus;
 
     const getLastContacts = async () => {
@@ -87,12 +79,12 @@ io.on("connection", (socket) => {
     };
 
     const chatOpenedFun = async (cookieID, friendID, message) => {
-        const singleChat = await chatController.single_chat_create(cookieID, friendID, message);
+        const singleChat = await chatController.auto_choose_opt(cookieID, friendID, message);
 
-        if (singleChat) {
-            console.log('chat utworzony');
-        } else {
+        if (!singleChat) {
             console.log('chat nie został utworzony');
+        } else {
+            console.log('chat utworzony');
         }
     };
 
@@ -112,13 +104,9 @@ io.on("connection", (socket) => {
 
         if (databaseConnection) {
             statusController.change_status(decodedCookie.id, onlineStatus);
-
             // updateLastContacts(pID); //--->>>>> testowe
-
             // socket.emit('lastContactsStatusUpdate', getLastContacts());
-
             throwLastContacts();
-
         } else {
         console.log('Database is so slow');
         }
@@ -138,7 +126,6 @@ io.on("connection", (socket) => {
         });
 
         socket.on('newLastContact', (data) => {
-            //użycie funckji aktualizacji lastContacts
             updateLastContacts(data);
         });
 
@@ -147,11 +134,6 @@ io.on("connection", (socket) => {
             socket.emit('chatDone', { message: 'Chat done'});
         });
     }
-
-    // zapisac w notatkach, aby przyjrzec się problemowi co jesli użytwonik się
-    // nie wylogował
-    // dodatkowo dodać cos co bedzie sledzic czy użytkownik ma przegladarke
-    // w tle czy faktycznie jest aktywny
 
     socket.on('disconnect', () => {
         console.log('User has been disconnected');

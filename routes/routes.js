@@ -42,5 +42,4 @@ router.delete('/files/del/:id', filesController.delete_single_file);
 // @controller statusController
 router.post('/trial', statusController.trial_add_lastContacts);
 
-
 module.exports = router;

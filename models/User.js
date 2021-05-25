@@ -38,13 +38,6 @@ const userSchema = new mongoose.Schema({
             _id: String,
             fname: String,
             surname: String
-            //state -> it will be pointing to invitation & friendship state, like follows:...
-            //...pending (when invitation is waiting for accept), active/friend, deleted(...
-            //...when deleted from friends) -> it supposed to be relocated to value deletedFriends...
-            //...only friendID to show users past friends
-
-            //status -> it will be pointing to friend online status (online, offline...
-            //...away from keyboard and others)
         }
     ],
     notifs: [

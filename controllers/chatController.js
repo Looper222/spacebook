@@ -40,24 +40,31 @@ const single_chat_create = async (cookieID, friendID, message) => {
             }
         });
     } catch (err) {
+        console.log('single chat error');
         console.log(err);
     }
 };
 
 const auto_choose_opt = async (cookieID, friendID, message) => {
     try {
-        const chatInfo = await User.find({ _id: cookieID, allChats: { $in: friendID }}).select(`allChats: { $in: ${friendID}}`);
+        const chatInfo = await User.find({ _id: cookieID, allChats: { $in: friendID }}).selected(`allChats`);
 
         if (!chatInfo) {
-            single_chat_create(cookieID, friendID, message);
+            console.log('nie istnieje w bazie danych jeszcze');
+            const single_chat_entity = await single_chat_create(cookieID, friendID, message);
+            return single_chat_entity;
         } else {
             console.log('istnieje');
+            console.log(chatInfo);
+            return chatInfo;
         }
     } catch (err) {
+        console.log ('auto choose error');
         console.log(err);
     }
 };
 
 module.exports = {
-    single_chat_create
+    single_chat_create,
+    auto_choose_opt
 };

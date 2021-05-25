@@ -112,7 +112,6 @@ const update_lastContacts = async (cookieID, contactID) => {
                     console.log(err);
                 }
             }
-
         } catch (err) {
             console.log(err);
         }
@@ -128,7 +127,6 @@ const status_of_lastContacts = async (lastContacts) => {
     }
     return contactsWithStatus;
 };
-
 
 module.exports = {
     change_status,

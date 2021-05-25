@@ -13,10 +13,6 @@ socket.on('start', () => {
 
 });
 
-// socket.on('ddx', (data) => {
-//     dest.innerHTML = data;
-// });
-
 socket.on('singleStatus', (data) => {
     const text = `Status usera: ${data.userID} to ${data.onlineStatus}`;
     status.innerHTML = text;

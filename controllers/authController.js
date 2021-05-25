@@ -60,24 +60,20 @@ const handleErrorsSignup = (err) => {
     return errors;
 };
 
-
 // create jwt
 const maxAge = 1 * 24 * 60 * 60;
 const createToken = (id) => {
     return jwt.sign({ id }, 'uG4pUlyy1nRRrDA9', { expiresIn: maxAge });
 };
 
-
 // after submit registration data
 const signup_post = async (req, res) => {
-    //race & planet were deleted
     const { email, fname, surname, password, phoneNumber, birthDate, sex } = req.body;
     const onlineStatus = false;
     const friends = [];
     const notifs = [];
     const chat = [];
     const lastContacts = [];
-
 
     try {
         let user;
@@ -111,8 +107,6 @@ const login_post = async (req, res) => {
         res.status(400).json({ errors });
     }
 };
-
-
 
 module.exports = {
     signup_post,
