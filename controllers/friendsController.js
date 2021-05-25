@@ -1,6 +1,12 @@
 const User = require('../models/User');
 const { idFromCookie } = require('../middleware/componentsMiddleware');
 
+/**
+ * Add friends to user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const add_friend = async (req, res) => {
     idFromCookie(req);
     const { friendID } = req.body;
@@ -22,6 +28,12 @@ const add_friend = async (req, res) => {
     }
 };
 
+/**
+ * Get user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const get_friends = async (req, res) => {
     idFromCookie(req);
 
@@ -35,7 +47,12 @@ const get_friends = async (req, res) => {
     }
 };
 
-
+/**
+ * Delete record from user's friends list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const delete_friend = async (req, res) => {
     idFromCookie(req);
     const { friendID } = req.body;
@@ -55,6 +72,10 @@ const delete_friend = async (req, res) => {
     }
 };
 
+/**
+ * Controller including functions with user's friends control operations
+ * @module controllers/friendsController
+ */
 module.exports = {
     add_friend,
     get_friends,

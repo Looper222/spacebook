@@ -61,12 +61,31 @@ const handleErrorsSignup = (err) => {
 };
 
 // create jwt
+/**
+ * Age of cookie's life
+ * @type {Int32}
+ */
 const maxAge = 1 * 24 * 60 * 60;
+
+/**
+ * Creating token JWT
+ * @function
+ * @param {String} id user's id
+ * @returns jwt token with payload: { id }, and expiresIn: { maxAge }
+ */
 const createToken = (id) => {
     return jwt.sign({ id }, 'uG4pUlyy1nRRrDA9', { expiresIn: maxAge });
 };
 
 // after submit registration data
+/**
+ * Registration process
+ * @description
+ * Save new user's info to DB
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const signup_post = async (req, res) => {
     const { email, fname, surname, password, phoneNumber, birthDate, sex } = req.body;
     const onlineStatus = false;
@@ -93,6 +112,14 @@ const signup_post = async (req, res) => {
 };
 
 // after submit login data
+/**
+ * Authorization process - login
+ * @description
+ * Authorize user by comparing data sent with data from DB
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const login_post = async (req, res) => {
     const { login, password } = req.body;
 
@@ -108,6 +135,10 @@ const login_post = async (req, res) => {
     }
 };
 
+/**
+ * Controller including functions with user's authorization process
+ * @module controllers/authController
+ */
 module.exports = {
     signup_post,
     login_post

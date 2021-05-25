@@ -1,6 +1,12 @@
 const User = require('../models/User');
 const { idFromCookie } = require('../middleware/componentsMiddleware');
 
+/**
+ * Add notification to user's notifications list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const add_notif = async (req, res) => {
     idFromCookie(req);
     const { friendID, notifType } = req.body;
@@ -28,6 +34,12 @@ const add_notif = async (req, res) => {
     }
 };
 
+/**
+ * Remove notification from user's notifications list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const remove_notif = async (req, res) => {
     idFromCookie(req);
     const { friendID } = req.body;
@@ -48,6 +60,12 @@ const remove_notif = async (req, res) => {
     }
 };
 
+/**
+ * Get notifications from user's notifications list
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
 const get_notifs = async (req, res) => {
     idFromCookie(req);
 
@@ -60,6 +78,10 @@ const get_notifs = async (req, res) => {
     }
 };
 
+/**
+ * Controller including functions with user's notifications control operations
+ * @module controllers/notifController.js
+ */
 module.exports = {
     add_notif,
     remove_notif,

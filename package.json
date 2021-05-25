@@ -24,7 +24,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon app"
+    "start": "nodemon app",
+    "jsdoc": "jsdoc -d docs/backend -r src/"
   },
   "author": "Dawid Mikołajczyk",
   "license": "ISC"
