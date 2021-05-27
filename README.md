@@ -2,7 +2,7 @@
  - Express, Node.js based server-side REST Api.
  - DB based on MongoDB, stored in the cloud - MongoDB Atlas,
  - JWT token,
- - Socekt.io
+ - Socket.io
 
 # components included:
 - registration,
