@@ -1,0 +1,20 @@
+{
+    "plugins": [],
+    "recurseDepth": 10,
+    "source": {
+        "include": ["controllers/authController.js", "controllers/chatController.js",
+            "controllers/filesController.js", "controllers/friendsController.js", "controllers/searchController.js",
+            "controllers/statusController.js", "middleware/componentsMiddleware.js"],
+        "includePattern": ".+\\.js(doc|x)?$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "sourceType": "module",
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false
+    }
+}

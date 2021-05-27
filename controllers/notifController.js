@@ -82,6 +82,7 @@ const get_notifs = async (req, res) => {
  * Controller including functions with user's notifications control operations
  * @module controllers/notifController.js
  */
+
 module.exports = {
     add_notif,
     remove_notif,
