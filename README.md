@@ -11,4 +11,5 @@
 - adding friends,
 - setting notifications,
 - user's online/offline status, real-time changing,
-- chat rooms (with saving messages to DB) .... [in progress]
+- chat rooms (with saving messages to DB) .... [in progress],
+- documentation (based on JSDOC) ... [in progress]
