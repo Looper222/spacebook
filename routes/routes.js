@@ -21,6 +21,7 @@ router.get('/login', (req, res) => {
 // @controller searchController
 router.post('/search', searchController.search_user);
 router.post('/getUser', searchController.get_user);
+router.post('/anotherUser', searchController.get_another_user);
 
 // @controller friendsController
 router.post('/addFriend', friendsController.add_friend);

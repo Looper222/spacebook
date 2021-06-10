@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         validate: [isDate, 'Please enter a valid date']
     },
-    sex: {
+    gender: {
         type: String,
     },
     onlineStatus: Boolean,
@@ -47,26 +47,6 @@ const userSchema = new mongoose.Schema({
             creationDate: String
         }
     ],
-    // chat: [
-    //     {
-    //         _id: String,
-    //         nickname: String,
-    //         lastUpdate: String,
-    //         messages: [
-    //                 {
-    //                     _id: String,
-    //                     message: String,
-    //                     readStatus: Boolean,
-    //                     sentDate: String,
-    //                     readDate: String
-    //                 }
-    //             ]
-    //     }
-    // ],
-    // chats: {
-    //     lastChats: Array,
-    //     allChats: Array
-    // },
     allChats: Array,
     lastChats: Array,
     lastContacts: Array,

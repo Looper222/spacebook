@@ -33,9 +33,7 @@ const handleErrorsSignup = (err) => {
         password: '',
         phoneNumber: '',
         birthDate: '',
-        // race: '',
-        sex: ''
-        // planet: ''
+        gender: ''
     }
 
     // duplicate value errors
@@ -87,7 +85,7 @@ const createToken = (id) => {
  * @param {Response} res HTTP response
  */
 const signup_post = async (req, res) => {
-    const { email, fname, surname, password, phoneNumber, birthDate, sex } = req.body;
+    const { email, fname, surname, password, phoneNumber, birthDate, gender } = req.body;
     const onlineStatus = false;
     const friends = [];
     const notifs = [];
@@ -97,9 +95,9 @@ const signup_post = async (req, res) => {
     try {
         let user;
         if ( phoneNumber == "" || phoneNumber == null) {
-            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts });
+            user = await User.create({ email, fname, surname, password, birthDate, gender, onlineStatus, friends, notifs, chat, lastContacts });
         } else {
-            user = await User.create({ email, fname, surname, password, birthDate, sex, onlineStatus, friends, notifs, chat, lastContacts, phoneNumber });
+            user = await User.create({ email, fname, surname, password, birthDate, gender, onlineStatus, friends, notifs, chat, lastContacts, phoneNumber });
         }
         const token = createToken(user._id);
         res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });

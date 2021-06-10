@@ -55,7 +55,7 @@ const get_user = async (req, res) => {
     idFromCookie(req);
 
     try {
-        const user = await User.findById(userID).select('fname surname email phoneNumber sex race').lean();
+        const user = await User.findById(userID).select('fname surname email phoneNumber gender').lean();
 
         console.log(user);
         res.status(201).json({ user: user });
@@ -65,9 +65,29 @@ const get_user = async (req, res) => {
 };
 
 /**
+ * Get user info
+ * @function
+ * @param {Request} req HTTP request methods/POST
+ * @param {Response} res HTTP response
+ */
+const get_another_user = async (req, res) => {
+    const { userID } = req.body;
+
+    try {
+        const user = await User.findById(userID).select('fname surname email phoneNumber gender').lean();
+
+        console.log(user);
+        res.status(201).json({ user: user });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+/**
  * Controller including functions with user search operations
  */
 module.exports = {
     search_user,
-    get_user
+    get_user,
+    get_another_user
 };
