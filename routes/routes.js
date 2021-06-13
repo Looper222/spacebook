@@ -5,17 +5,25 @@ const friendsController = require('../controllers/friendsController');
 const notifController = require('../controllers/notifController');
 const filesController = require('../controllers/filesController');
 const statusController = require('../controllers/statusController');
+const path = require('path');
 
 const router = Router();
 
 // @controller authController
 router.post('/signup', authController.signup_post);
 router.post('/login', authController.login_post);
-router.get('/', (req, res) => {
-    res.redirect('/login');
-});
+// router.get('/', (req, res) => {
+//     res.redirect('/login');
+// });
+// router.get('/login', (req, res) => {
+//     res.render('index');
+// });
+// router.get('/login', (req, res) => {
+//     // res.sendFile('./../public/index.html', { root: __dirname });
+//     res.sendFile(path.resolve('public/index.html'));
+// });
 router.get('/login', (req, res) => {
-    res.send('index.html');
+    res.sendFile(path.resolve('public/partials/login.html'));
 });
 
 // @controller searchController

@@ -1,5 +1,7 @@
 const socket = io();
 
+// socket.connect("http://localhost/login");
+
 const test = document.getElementById('test');
 const dest = document.getElementById('dest');
 const status = document.getElementById('status');
