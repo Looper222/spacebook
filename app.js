@@ -11,6 +11,7 @@ const { idFromCookie } = require('./middleware/componentsMiddleware');
 const Cookie = require('cookie');
 const statusController = require('./controllers/statusController');
 const chatController = require('./controllers/chatController');
+const searchController = require('./controllers/searchController');
 
 const app = express();
 
@@ -97,6 +98,13 @@ io.on("connection", (socket) => {
 
     if (decodedCookie) {
         onlineStatus = true;
+
+        // const userInfo = searchController.get_user_short(decodedCookie.id);
+        // const userInfo = async () => {
+        //     const info = await searchController.get_user_short(decodedCookie.id);
+        // };
+        // userInfo();
+
         socket.broadcast.emit('singleStatus', {
             userID: decodedCookie.id,
             onlineStatus: onlineStatus

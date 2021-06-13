@@ -10,13 +10,15 @@ const lastContacts = document.getElementById('lastContacts');
 
 socket.on('start', () => {
     const msg = "I'm connected";
-    test.innerHTML = msg;
+    document.getElementById('self-status').innerHTML += "online" + "&#128994";
+    // test.innerHTML = msg;1
     socket.emit('hi', { message: msg });
 
 });
 
 socket.on('singleStatus', (data) => {
-    const text = `Status usera: ${data.userID} to ${data.onlineStatus}`;
+    // const text = `Status usera: ${data.userID} to ${data.onlineStatus}`;
+    const text = `User: ${data.userID} has changed his online status to ${data.onlineStatus}`;
     status.innerHTML = text;
     socket.emit('newUserConnected', data.userID);
 });
@@ -24,10 +26,14 @@ socket.on('singleStatus', (data) => {
 socket.on('lastContactsStatusUpdate', (data) => {
     // const list = data.toString();
     console.log(data);
-    info.innerHTML = 'Event się wykonał';
+    // info.innerHTML = 'Event się wykonał';
+    const timeNow = new Date
+    info.innerHTML = `Ostatni update: ${new Date().toISOString()}`
     let list = '';
     for (let i = 0; i < data.length; i++) {
-        list += `{ user: ${data[i]._id}, statusOnline: ${data[i].onlineStatus} } `;
+        // list += `{ user: ${data[i]._id}, statusOnline: ${data[i].onlineStatus} } `;
+        list += `<div>user: ${data[i]._id}, statusOnline: ${data[i].onlineStatus} </div>`;
+
         console.log(list);
     }
 
