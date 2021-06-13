@@ -3,8 +3,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home | Spacebook</title>
     <style>
+        body {
+            margin: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
         button {
             background-color: rgb(170, 169, 169);
             color: black;
@@ -15,24 +19,66 @@
             margin: 10px;
             padding: 5px;
         }
+        .head {
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-bottom: 15px;
+            background-color: rgb(80,80,80);
+            color: white;
+        }
+        .friends {
+            padding-left: 20px;
+            border-bottom: 2px solid rgb(102, 89, 89);
+        }
+        .connection {
+            padding-left: 20px;
+        }
+        #info, #lastContacts > div {
+            background-color: rgb(107, 99, 99);
+            color: white;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            border: 1px solid black;
+            padding: 8px;
+            width: 600px;
+        }
+        #status, #result, #chatDone {
+            width: 600px;
+            background-color: rgb(107, 99, 99);
+            color: white;
+            border: 2px solid black;
+            padding: 8px;
+        }
     </style>
 </head>
 <body>
-    <h1>Hello</h1>
+    <div class="head">
+        <h1>Home | Spacebook</h1>
+        <div id="self-status">Status: </div>
+    </div><br>
 
-    <button id="id1" value="6085a79176f0955784f96170">Elton John</button>
-    <button id="id2" value="6085a79a76f0955784f96171">Phil Collins</button>
-    <button id="id3" value="6085a891f1665f1b94f000de">Bruce Wayne</button>
+    <div class="friends">
+        <div class="fdiv"><h2>Friends</h2></div>
+        <button id="id1" value="6085a79176f0955784f96170">Elton John</button>
+        <button id="id2" value="6085a79a76f0955784f96171">Phil Collins</button>
+        <button id="id3" value="6085a891f1665f1b94f000de">Bruce Wayne</button>
 
-    <div id="result"></div>
+    </div>
+    <br><br>
 
-    <div id="test"></div>
-    <div id="dest"></div>
-    <div id="status"></div>
-    <div id="info"></div>
-    <div id="lastContacts"></div>
+    <div class="connection">
+        
 
-    <div id="chatDone"></div>
+        <!-- <div id="test"></div> -->
+        <div id="dest"></div>
+        
+        <div class="news">
+            <div id="info"></div>
+            <div id="lastContacts"></div>
+        </div><br>
+        <div id="status" style="width: 600px;background-color: rgb(107, 99, 99);color: white;border: 2px solid black;padding: 8px;"></div>
+        <br><div id="result"></div><br>
+        <div id="chatDone"></div>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
     <script src="main.js"></script>

@@ -81,7 +81,16 @@ const get_another_user = async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-}
+};
+
+const get_user_short = async (userID) => {
+    try {
+        const user = await User.findById(userID).select('fname surname email');
+        return user;
+    } catch (err) {
+        console.log(err);
+    }
+};
 
 /**
  * Controller including functions with user search operations
@@ -89,5 +98,6 @@ const get_another_user = async (req, res) => {
 module.exports = {
     search_user,
     get_user,
-    get_another_user
+    get_another_user,
+    get_user_short
 };
