@@ -24,7 +24,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const server = app.listen(8080, () => {
+const server = app.listen(5000, () => {
     console.log("Server started");
 });
 
