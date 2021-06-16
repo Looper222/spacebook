@@ -24,7 +24,9 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const server = app.listen(8080, () => {
+const port = app.listen(process.env.PORT || 8080);
+
+const server = app.listen(port, () => {
     console.log("Server started");
 });
 
