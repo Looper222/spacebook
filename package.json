@@ -24,7 +24,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "node app",
+    "start": "nodemon app",
     "doc": " jsdoc -d docs --configure docs/jsconf.json"
   },
   "author": "Dawid Mikołajczyk",

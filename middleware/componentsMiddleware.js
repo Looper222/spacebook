@@ -13,6 +13,7 @@ const idFromCookie = (req) => {
 
 const idFromToken = (token) => {
     const decodedToken = jwt.decode(token);
+    // console.log(decodedtoken.id);
     return userID = decodedToken.id;
 }
 

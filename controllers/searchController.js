@@ -54,18 +54,19 @@ const search_user = async (req, res) => {
 const get_user = async (req, res) => {
     // idFromCookie(req);
     const tk = req.header('authorization');
-    // console.log(tk);
-    idFromToken(tk);
-    // const userID = req.header('authorization');
+    if (tk) {
+        idFromToken(tk);
 
-    try {
-        const user = await User.findById(userID).select('fname surname email phoneNumber gender').lean();
+        try {
+            const user = await User.findById(userID).select('fname surname email phoneNumber gender').lean();
 
-        console.log(user);
-        res.status(201).json({ user: user });
-    } catch (err) {
-        console.log(err);
-        res.status(400).json({ info: 'Something went wrong'});
+            console.log(user);
+            res.status(201).json({ user: user });
+        } catch (err) {
+            console.log(err);
+        }
+    } else {
+        res.status(400).json({ error: 'Token is empty'});
     }
 };
 
