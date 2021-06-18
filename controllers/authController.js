@@ -100,7 +100,7 @@ const signup_post = async (req, res) => {
             user = await User.create({ email, fname, surname, password, birthDate, gender, onlineStatus, friends, notifs, chat, lastContacts, phoneNumber });
         }
         const token = createToken(user._id);
-        res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
+        res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true, secure: 'auto', sameSite: 'none' });
         res.status(201).json({ user: user._id });
     }
     catch(err) {
@@ -124,7 +124,7 @@ const login_post = async (req, res) => {
     try {
         const user = await User.login( login, password);
         const token = createToken(user._id);
-        res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true });
+        res.cookie('authenticatedUser', token, { maxAge: maxAge * 1000, httpOnly: true, secure: 'auto', sameSite: 'none' });
         res.status(200).json({ id: user._id, email: user.email, fname: user.fname, surname: user.surname, token: token });
     }
     catch(err) {
