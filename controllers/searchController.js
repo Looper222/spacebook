@@ -64,6 +64,7 @@ const get_user = async (req, res) => {
             res.status(201).json({ user: user });
         } catch (err) {
             console.log(err);
+            res.status(400).json({ error: 'User was not found'});
         }
     } else {
         res.status(400).json({ error: 'Token is empty'});
