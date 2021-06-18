@@ -65,6 +65,7 @@ const get_user = async (req, res) => {
         res.status(201).json({ user: user });
     } catch (err) {
         console.log(err);
+        res.status(400).json({ info: 'Something went wrong'});
     }
 };
 
