@@ -42,6 +42,7 @@ const search_user = async (req, res) => {
 
     } catch (err) {
         console.log(err);
+        res.status(400).json({ error: 'User was not found'});
     }
 };
 
@@ -87,6 +88,7 @@ const get_another_user = async (req, res) => {
         res.status(201).json({ user: user });
     } catch (err) {
         console.log(err);
+        res.status(400).json({ error: 'User was not found'});
     }
 };
 
@@ -96,6 +98,7 @@ const get_user_short = async (userID) => {
         return user;
     } catch (err) {
         console.log(err);
+        res.status(400).json({ error: 'User was not found'});
     }
 };
 

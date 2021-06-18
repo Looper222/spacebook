@@ -58,8 +58,10 @@ io.on("connection", (socket) => {
         console.log(data.message);
     });
 
-    const cookies = Cookie.parse(socket.request.headers.cookie || "");
-    const decodedCookie = jwt.decode(cookies.authenticatedUser);
+    // const cookies = Cookie.parse(socket.request.headers.cookie || "");
+    // const decodedCookie = jwt.decode(cookies.authenticatedUser);
+    const tokens = socket.request.headers.authorization || "";
+    const decodedCookie = jwt.decode(tokens);
     let onlineStatus;
 
     const getLastContacts = async () => {
