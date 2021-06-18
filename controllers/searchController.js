@@ -1,6 +1,6 @@
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const { idFromCookie } = require('../middleware/componentsMiddleware');
+const { idFromCookie, idFromToken } = require('../middleware/componentsMiddleware');
 
 /**
  * Search user in DB
@@ -52,7 +52,11 @@ const search_user = async (req, res) => {
  * @param {Response} res HTTP response
  */
 const get_user = async (req, res) => {
-    idFromCookie(req);
+    // idFromCookie(req);
+    const tk = req.header('authorization');
+    // console.log(tk);
+    idFromToken(tk);
+    // const userID = req.header('authorization');
 
     try {
         const user = await User.findById(userID).select('fname surname email phoneNumber gender').lean();
