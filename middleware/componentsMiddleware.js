@@ -11,10 +11,16 @@ const idFromCookie = (req) => {
     return userID = decodedCookie.id;
 };
 
+const idFromToken = (token) => {
+    const decodedToken = jwt.decode(token);
+    return userID = decodedToken.id;
+}
+
 /**
  * Middleware with components functions
  * @module middleware/componentsMiddleware
  */
 module.exports = {
-    idFromCookie
+    idFromCookie,
+    idFromToken
 }
